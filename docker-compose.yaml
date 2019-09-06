@@ -1,0 +1,45 @@
+version: '3.6'
+services:
+  # node:
+  #   image: ${DOCKER_REPO_PUSH}node:${NODE_TAG}
+  #   restart: 'no'
+  #   build:
+  #     context: ./docker-images/node
+  #     target: node
+  #     args:
+  #       NODE_TAG: ${NODE_TAG}
+    
+  # node-python:
+  #   image: ${DOCKER_REPO_PUSH}node:${NODE_TAG}-python-${PYTHON_TAG}
+  #   restart: 'no'
+  #   build:
+  #     context: ./docker-images/node
+  #     target: node-python
+  #     args:
+  #       NODE_TAG: ${NODE_TAG}
+  #       PYTHON_TAG: ${PYTHON_TAG}
+
+  #   command: tail -f /dev/null
+
+  jenkins-dind:
+    build:
+      context: ./docker-images/jenkins
+      # target: jenkins-dind
+    restart: "unless-stopped"
+    privileged: true
+    # user: root
+    environment:
+      - JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+      - JAVA_OPTS="-Djava.awt.headless=true"
+#      - DOCKER_GID_ON_HOST= # $(cat /etc/group | grep docker: | cut -d: -f3)
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins-home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: "--plugins=blueocean:1.19.0"
+      
+volumes:
+  jenkins-home:
+    name: jenkins-home
