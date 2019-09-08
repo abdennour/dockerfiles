@@ -8,14 +8,18 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${
                  -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz
 
-COPY . /tmp/.
-
-RUN \
-  mv /tmp/executors.groovy \
-     /usr/share/jenkins/ref/init.groovy.d/executors.groovy \
-  && mv /tmp/entrypoint.sh /usr/local/bin/jentrypoint \
-  && chmod +x /usr/local/bin/jentrypoint
+RUN apk --update add sudo shadow \
+  && echo "jenkins ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers \
+  && rm -vfr \
+		/tmp/* \
+		/var/tmp/* \
+		/var/lib/apt/lists/*
 
 USER jenkins
+COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
+COPY security.groovy /usr/share/jenkins/ref/init.groovy.d/security.groovy    
+COPY entrypoint.sh /usr/local/bin/jentrypoint
+
+
 
 ENTRYPOINT ["sh", "/usr/local/bin/jentrypoint" ]

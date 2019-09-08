@@ -29,9 +29,8 @@ services:
     privileged: true
     # user: root
     environment:
-      - JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
-      - JAVA_OPTS="-Djava.awt.headless=true"
-#      - DOCKER_GID_ON_HOST= # $(cat /etc/group | grep docker: | cut -d: -f3)
+      - JAVA_OPTS="-Djenkins.install.runSetupWizard=false -Djava.awt.headless=true"
+      - DOCKER_GID_ON_HOST=20 # MAc $(id -g) Linux $(cat /etc/group | grep docker: | cut -d: -f3)
     ports:
       - 8080:8080
       - 50000:50000
