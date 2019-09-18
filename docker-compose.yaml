@@ -38,6 +38,16 @@ services:
       - jenkins-home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock:ro
     command: "--plugins=blueocean:1.19.0"
+
+  remark:
+    build:
+      context: ./docker-images/remark
+      target: remark
+      args:
+        NGINX_VERSION: 17-alpine
+        REMARK_VERSION: '0.14.0'
+    restart: "no"
+
       
 volumes:
   jenkins-home:
