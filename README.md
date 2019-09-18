@@ -27,7 +27,7 @@ version: '3.7'
 
 services:
   presentation:
-    image: abdennour/remark:0.14.0-nginx-17-alpine
+    image: abdennour/remark:0.14.0-nginx-1.17-alpine
     ports:
     - 8080:80
     volumes:

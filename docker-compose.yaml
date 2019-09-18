@@ -44,9 +44,10 @@ services:
       context: ./docker-images/remark
       target: remark
       args:
-        NGINX_VERSION: 17-alpine
+        NGINX_VERSION: 1.17-alpine
         REMARK_VERSION: '0.14.0'
     restart: "no"
+    image: abdennour/remark:0.14.0-nginx-1.17-alpine
 
       
 volumes:
