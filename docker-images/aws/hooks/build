@@ -6,7 +6,7 @@ ls -la
 echo '----------ls -la ..'
 ls -la ../
 pwd
-export $(cat .env | xargs)
+export $(cat ../../.env | xargs)
 IMAGE_NAME=$(echo -n $IMAGE_NAME | sed 's/latest/'${AWS_CLI_VERSION}'/g');
 
 printenv
