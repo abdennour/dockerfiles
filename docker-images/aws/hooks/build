@@ -11,6 +11,11 @@ printenv
 docker build \
   --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} \
   --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-  --build-arg VCS_REF=$SOURCE_COMMIT -t $IMAGE_NAME .
+  --build-arg VCS_REF=$SOURCE_COMMIT -t ${DOCKER_REPO}:${AWS_CLI_VERSION} .
 
 echo "------ HOOK END - BUILD -------"
+
+
+# NOTE
+# DOCKER_REPO=index.docker.io/abdennour/aws
+# IMAGE_NAME=index.docker.io/abdennour/aws:latest
