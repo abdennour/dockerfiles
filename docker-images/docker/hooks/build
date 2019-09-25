@@ -8,7 +8,8 @@ export $(cat ../../.env | xargs)
 
 printenv
 
-function build {
+build()
+{
   target=$1;
   IMMUTABLE_TAG=$2;
   export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG}
