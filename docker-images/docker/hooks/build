@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+# https://github.com/docker/hub-feedback/issues/508#issuecomment-240616319
+
+echo "------ HOOK START - BUILD -------"
+ls -la
+
+export $(cat ../../.env | xargs)
+
+printenv
+
+function build {
+  target=$1;
+  IMMUTABLE_TAG=$2;
+  export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG}
+
+  docker build \
+  --build-arg DOCKER=${DOCKER} \
+  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+  --build-arg VCS_REF=$SOURCE_COMMIT \
+  --build-arg VERSION=${IMMUTABLE_IMAGE_NAME} \
+  --target ${target}
+  -t ${IMMUTABLE_IMAGE_NAME} \
+  -t ${IMAGE_NAME} .
+
+  echo "---publish immutable artifact ----"
+  docker push ${IMMUTABLE_IMAGE_NAME}
+}
+
+build docker ${DOCKER}
+build docker-aws ${DOCKER}-aws${AWS_CLI_VERSION}
+
+
+echo "------ HOOK END - BUILD -------"
+
+
+# NOTE
+# DOCKER_REPO=index.docker.io/abdennour/aws
+# IMAGE_NAME=index.docker.io/abdennour/aws:latest

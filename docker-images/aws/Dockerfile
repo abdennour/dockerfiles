@@ -1,7 +1,8 @@
 FROM python:3.6-alpine3.10
 
 
-LABEL tn.kubernetes.docker.dockerfile="docker-images/aws/Dockerfile" \
+LABEL maintainer="Abdennour Toumi <http://in.abdennoor.com>" \
+      tn.kubernetes.docker.dockerfile="docker-images/aws/Dockerfile" \
       tn.kubernetes.license=MIT \
       tn.kubernetes.name="aws-cli" \
       tn.kubernetes.url=https://github.com/abdennour/bakery-images \
