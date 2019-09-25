@@ -2,10 +2,11 @@
 # https://github.com/docker/hub-feedback/issues/508#issuecomment-240616319
 
 echo "------ HOOK START - BUILD -------"
-export $(cat ../../../.env | xargs)
+export $(cat .env | xargs)
 
 printenv
 
+IMAGE_NAME=$(echo -n $image_name | sed 's/latest/'${AWS_CLI_VERSION}'/g')
 docker build \
   --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} \
   --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
