@@ -13,6 +13,9 @@ docker build \
   --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
   --build-arg VCS_REF=$SOURCE_COMMIT -t ${DOCKER_REPO}:${AWS_CLI_VERSION} .
 
+docker tag ${DOCKER_REPO}:${AWS_CLI_VERSION} ${IMAGE_NAME}
+
+# export IMAGE_NAME=${DOCKER_REPO}:${AWS_CLI_VERSION}
 echo "------ HOOK END - BUILD -------"
 
 
