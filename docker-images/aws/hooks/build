@@ -2,6 +2,10 @@
 # https://github.com/docker/hub-feedback/issues/508#issuecomment-240616319
 
 echo "------ HOOK START - BUILD -------"
+ls -la
+echo '----------ls -la ..'
+ls -la ../
+pwd
 export $(cat .env | xargs)
 IMAGE_NAME=$(echo -n $IMAGE_NAME | sed 's/latest/'${AWS_CLI_VERSION}'/g');
 
