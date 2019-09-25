@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# https://github.com/docker/hub-feedback/issues/508#issuecomment-240616319
+
+echo "------ HOOK START - BUILD -------"
+export $(cat ../../../.env | xargs)
+
+printenv
+
+docker build \
+  --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} \
+  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+  --build-arg VCS_REF=$SOURCE_COMMIT -t $IMAGE_NAME .
+
+echo "------ HOOK END - BUILD -------"
