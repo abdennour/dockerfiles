@@ -21,8 +21,8 @@ FROM docker as docker-aws
 
 LABEL tn.kubernetes.name="docker-aws"
 
-ARG AWS_VERSION_CLI
-ENV AWS_VERSION_CLI=${AWS_VERSION_CLI}
+ARG AWS_CLI_VERSION
+ENV AWS_CLI_VERSION=${AWS_CLI_VERSION}
 RUN apk -v --update add \
         python \
         py-pip \
@@ -30,10 +30,9 @@ RUN apk -v --update add \
         less \
         mailcap \
         && \
-    pip install --upgrade awscli==${AWS_VERSION_CLI} s3cmd==2.0.1 python-magic && \
+    pip install --upgrade awscli==$AWS_CLI_VERSION s3cmd==2.0.1 python-magic && \
     apk -v --purge del py-pip && \
     rm /var/cache/apk/*
 VOLUME /root/.aws
 VOLUME /project
 WORKDIR /project
-ENTRYPOINT ["aws"]
