@@ -8,6 +8,7 @@ services:
   builder:
     image: ${IMMUTABLE_IMAGE_NAME}
     build:
+      context: docker-images/${IMAGE_NAME_ONLY}
       labels:
         maintainer: "Abdennour Toumi <http://in.abdennoor.com>"
         tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME_ONLY}/Dockerfile"

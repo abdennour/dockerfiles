@@ -4,13 +4,15 @@
 #   $0 <dockerfile-target> <final-image-tag>
 #
 # must be imported from inside eachy ./<image-folder>/hook/build script
-build()
+build_function()
 {
   echo "------ HOOK START - BUILD -------"
   export $(cat ../../.env | xargs)
   export COMPOSE_FILE=../../docker-compose.yaml target=$1 IMMUTABLE_TAG=$2;
   export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG} IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
   export BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+  echo '--- Env vars just before building'
+  printenv
   docker-compose build builder;
   docker tag ${IMMUTABLE_IMAGE_NAME} ${IMAGE_NAME}
 
