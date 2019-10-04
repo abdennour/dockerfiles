@@ -1,5 +1,11 @@
 version: '3.6'
 services:
+  test:
+    image: gcr.io/gcp-runtimes/container-structure-test
+    volumes:
+    - .:/data
+    working_dir: /data
+   # args: ['test', '--image', 'gcr.io/$PROJECT_ID/image', '--config', 'test_config.yaml']
   # node:
   #   image: ${DOCKER_REPO_PUSH}node:${NODE_TAG}
   #   restart: 'no'
@@ -53,7 +59,12 @@ services:
     build: 
       context: ./docker-images/aws
       args:
-        AWS_CLI_VERSION: ${AWS_CLI_VERSION}    
+        AWS_CLI_VERSION: ${AWS_CLI_VERSION}
+  alpine-perl:
+    build:
+      context: ./docker-images/envsubt
+      args:
+        ALPINE_VERSION: ${ALPINE_VERSION}
 volumes:
   jenkins-home:
     name: jenkins-home
