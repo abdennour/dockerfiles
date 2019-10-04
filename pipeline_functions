@@ -5,13 +5,14 @@
 #
 # must be imported from inside eachy ./<image-folder>/hook/build script
 export $(cat ../../.env | xargs)
-export COMPOSE_FILE=../../docker-compose.yaml target=$1 IMMUTABLE_TAG=$2;
-export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG} IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
+export COMPOSE_FILE=../../docker-compose.yaml target=$1 
+export IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
 
 build_function()
 {
   echo "------ HOOK START - BUILD -------"
-  export BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+  export BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` IMMUTABLE_TAG=$2
+  export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG}
   echo '--- Env vars just before building'
   printenv
   docker-compose build builder;

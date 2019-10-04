@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . ../../pipeline_functions
 
-
+export $(cat ../../.env | xargs)
 build_function alpine-perl alpine-${ALPINE_VERSION}-perl
 # build    target             tag
