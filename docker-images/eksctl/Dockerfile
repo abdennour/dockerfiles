@@ -4,7 +4,7 @@ ARG EKSCTL_VERSION
 ENV EKSCTL_VERSION=${EKSCTL_VERSION}
 RUN apk -uv add --no-cache wget tar
 RUN wget "https://github.com/weaveworks/eksctl/releases/download/${EKSCTL_VERSION}/eksctl_$(uname -s)_amd64.tar.gz" \
-   && tar -zxvf eksctl_$(uname -s)_amd64.tar.gz \
+   && tar -zxvf "eksctl_$(uname -s)_amd64.tar.gz" \
    && chmod +x eksctl
 
 FROM python:3.6-alpine3.10 as eksctl

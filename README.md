@@ -1,40 +1,69 @@
 https://www.packer.io/docs/builders/docker.html
 https://github.com/moby/moby/issues/3378
 
-# Prepare
 
-- Install docker
-- Install `YAML Querty "yq"`: `brew install python-yq`
-- 
-# Bake
+# Availables Image Groups : 
+
+## abdennour/aws
 
 ```sh
-docker-compose build
+# basic example
+docker run --rm \
+  -v "${HOME}/.aws:/root/.aws" \
+  abdennour/aws aws s3 ls
+
 ```
 
-# Menu of meals:
+## abdennour/docker`
+
+```sh
+# basic example
+docker run --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  abdennour/docker:19-dind docker images
+
+# docker + aws
+docker run --name docker-aws --rm -d \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "${HOME}/.aws:/root/.aws" \
+  abdennour/docker:19-dind-aws1.16.246 tail -f /dev/null
+
+docker exec docker-aws sh -c '$(aws ecr get-login --no-include-email --region us-west-1)';
+docker exec docker-aws docker pull xxxxxxxx.dkr.ecr.us-west-1.amazonaws.com
 
 ```
-docker-compose config | yq -r .services.${service}.image
+
+## abdennour/eksctl`
+
+```sh
+# basic example
+docker run --rm \
+  -v "${HOME}/.aws:/root/.aws" \
+  abdennour/eksctl create cluster ...
 ```
 
-# Available images:
+## abdennour/envsubst
 
-**1. remark**
+```sh
+# basic example
+cat file_includes_env_vars.txt | docker run --rm abdennour/envsubst
+# or 
+docker run --rm abdennour/envsubst < file_includes_env_vars.txt
 
-```yaml
-version: '3.7'
-
-services:
-  presentation:
-    image: abdennour/remark:0.14.0-nginx-1.17-alpine
-    ports:
-    - 8080:80
-    volumes:
-    - ./myslides.md:/usr/share/nginx/html/slides.md
 ```
+## abdennour/jenkins
+
+## abdennour/node
+
+## abdennour/remark
 
 
-# Unit tests
 
-We are using this framework for unit-testing our container images: https://github.com/GoogleContainerTools/container-structure-test
+# CI/CD 
+
+Managed By [Docker hub automated builds](https://docs.docker.com/docker-hub/builds/)
+
+#  Tests
+
+**Linting** : in `docker-images/<IMAGE>/hooks/pre_build`
+**Contatainer Structure Tests** in `docker-images/<IMAGE>/hooks/build`
