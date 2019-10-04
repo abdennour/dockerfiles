@@ -8,7 +8,9 @@ services:
   builder:
     image: ${IMMUTABLE_IMAGE_NAME}
     build:
-      context: docker-images/${IMAGE_NAME_ONLY}
+      # context relatives to docker-images/${IMAGE_NAME_ONLY}/
+      context: .
+      target: ${target}
       labels:
         maintainer: "Abdennour Toumi <http://in.abdennoor.com>"
         tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME_ONLY}/Dockerfile"
@@ -26,7 +28,7 @@ services:
         AWS_CLI_VERSION: ${AWS_CLI_VERSION}
         DOCKER: ${DOCKER}
         ALPINE_VERSION: ${ALPINE_VERSION}
-      target: ${target}
+
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
