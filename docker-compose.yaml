@@ -28,6 +28,7 @@ services:
         AWS_CLI_VERSION: ${AWS_CLI_VERSION}
         DOCKER: ${DOCKER}
         ALPINE_VERSION: ${ALPINE_VERSION}
+        EKSCTL_VERSION: ${EKSCTL_VERSION}
 
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
