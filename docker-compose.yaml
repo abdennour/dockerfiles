@@ -10,9 +10,9 @@ services:
     build:
       labels:
         maintainer: "Abdennour Toumi <http://in.abdennoor.com>"
-        tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME}/Dockerfile"
+        tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME_ONLY}/Dockerfile"
         tn.kubernetes.license: "MIT"
-        tn.kubernetes.name: "${IMAGE_NAME}"
+        tn.kubernetes.name: "abdennour/${IMAGE_NAME_ONLY}"
         tn.kubernetes.url: "https://github.com/abdennour/bakery-images"
         tn.kubernetes.vcs-url: "https://github.com/abdennour/bakery-images.git"
         tn.kubernetes.vcs-type: Git

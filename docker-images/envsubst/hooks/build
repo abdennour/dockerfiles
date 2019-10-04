@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-source ../../build_function
+. ../../build_function
 
 build alpine-perl alpine-${ALPINE_VERSION}-perl
 # build    target             tag
