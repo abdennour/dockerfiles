@@ -1,39 +1,5 @@
 #!/usr/bin/env sh
-# https://github.com/docker/hub-feedback/issues/508#issuecomment-240616319
-
-echo "------ HOOK START - BUILD -------"
-ls -la
-
-export $(cat ../../.env | xargs)
-
-printenv
-
-build()
-{
-  target=$1;
-  IMMUTABLE_TAG=$2;
-  export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG}
-
-  docker build \
-  --build-arg ALPINE_VERSION=${ALPINE_VERSION} \
-  --build-arg AWS_CLI_VERSION=${AWS_CLI_VERSION} \
-  --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-  --build-arg VCS_REF=$SOURCE_COMMIT \
-  --build-arg VERSION=${IMMUTABLE_IMAGE_NAME} \
-  --target ${target} \
-  -t ${IMMUTABLE_IMAGE_NAME} \
-  -t ${IMAGE_NAME} .
-
-  echo "---publish immutable artifact ----"
-  docker push ${IMMUTABLE_IMAGE_NAME}
-}
+source ../../build_function
 
 build alpine-perl alpine-${ALPINE_VERSION}-perl
-
-
-echo "------ HOOK END - BUILD -------"
-
-
-# NOTE
-# DOCKER_REPO=index.docker.io/abdennour/envsubt
-# IMAGE_NAME=index.docker.io/abdennour/envsubt:latest
+# build    target             tag

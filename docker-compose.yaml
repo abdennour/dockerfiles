@@ -1,70 +1,34 @@
 version: '3.6'
 services:
+  # some env are injected by Docker Hub Build Service (SOURCE_COMMIT, DOCKER_REPO, IMAGE_NAME)
+  # other env are generated in hook/build script in each image folder 
+  #  e.g(target, BUILD_DATE, IMMUTABLE_IMAGE_NAME=DOCKER_REPO+TAG)
+  # the rest of env are from .env copy/paste
+  #  e.g (NODE_TAG)
+  builder:
+    image: ${IMMUTABLE_IMAGE_NAME}
+    build:
+      labels:
+        maintainer: "Abdennour Toumi <http://in.abdennoor.com>"
+        tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME}/Dockerfile"
+        tn.kubernetes.license: "MIT"
+        tn.kubernetes.name: "${IMAGE_NAME}"
+        tn.kubernetes.url: "https://github.com/abdennour/bakery-images"
+        tn.kubernetes.vcs-url: "https://github.com/abdennour/bakery-images.git"
+        tn.kubernetes.vcs-type: Git
+        tn.kubernetes.build-date: ${BUILD_DATE}
+        tn.kubernetes.version: ${IMMUTABLE_IMAGE_NAME}
+        tn.kubernetes.vcs-ref: ${SOURCE_COMMIT}
+      args:
+        NODE_TAG: ${NODE_TAG}
+        PYTHON_TAG: ${PYTHON_TAG}
+        AWS_CLI_VERSION: ${AWS_CLI_VERSION}
+        DOCKER: ${DOCKER}
+        ALPINE_VERSION: ${ALPINE_VERSION}
+      target: ${target}
   test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
     - .:/data
     working_dir: /data
    # args: ['test', '--image', 'gcr.io/$PROJECT_ID/image', '--config', 'test_config.yaml']
-  # node:
-  #   image: ${DOCKER_REPO_PUSH}node:${NODE_TAG}
-  #   restart: 'no'
-  #   build:
-  #     context: ./docker-images/node
-  #     target: node
-  #     args:
-  #       NODE_TAG: ${NODE_TAG}
-    
-  # node-python:
-  #   image: ${DOCKER_REPO_PUSH}node:${NODE_TAG}-python-${PYTHON_TAG}
-  #   restart: 'no'
-  #   build:
-  #     context: ./docker-images/node
-  #     target: node-python
-  #     args:
-  #       NODE_TAG: ${NODE_TAG}
-  #       PYTHON_TAG: ${PYTHON_TAG}
-
-  #   command: tail -f /dev/null
-
-  jenkins-dind:
-    build:
-      context: ./docker-images/jenkins
-      # target: jenkins-dind
-    restart: "unless-stopped"
-    privileged: true
-    # user: root
-    environment:
-      - JAVA_OPTS="-Djenkins.install.runSetupWizard=false -Djava.awt.headless=true"
-      - DOCKER_GID_ON_HOST=20 # MAc $(id -g) Linux $(cat /etc/group | grep docker: | cut -d: -f3)
-    ports:
-      - 8080:8080
-      - 50000:50000
-    volumes:
-      - jenkins-home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    command: "--plugins=blueocean:1.19.0"
-
-  remark:
-    build:
-      context: ./docker-images/remark
-      target: remark
-      args:
-        NGINX_VERSION: 1.17-alpine
-        REMARK_VERSION: '0.14.0'
-    restart: "no"
-    image: abdennour/remark:0.14.0-nginx-1.17-alpine
-
-  aws:
-    build: 
-      context: ./docker-images/aws
-      args:
-        AWS_CLI_VERSION: ${AWS_CLI_VERSION}
-  alpine-perl:
-    build:
-      context: ./docker-images/envsubt
-      args:
-        ALPINE_VERSION: ${ALPINE_VERSION}
-volumes:
-  jenkins-home:
-    name: jenkins-home
