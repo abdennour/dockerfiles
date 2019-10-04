@@ -6,4 +6,4 @@ RUN apk --no-cache --update add perl
 COPY entrypoint.sh /usr/bin/envsubst
 RUN chmod +x /usr/bin/envsubst
 
-ENTRYPOINT [ "/bin/sh" ]
+ENTRYPOINT [ "/usr/bin/envsubst" ]

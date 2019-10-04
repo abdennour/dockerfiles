@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # either comes from first argument or from /dev/stdin.
 # $0 /path/file

@@ -46,12 +46,12 @@ docker run --rm \
 
 ```sh
 # basic example
-cat file_includes_env_vars.txt | docker run --rm abdennour/envsubst
+cat file_includes_env_vars.txt | docker run -i --rm abdennour/envsubst
 # or 
-docker run -i --rm abdennour/envsubst envsubst < file_includes_env_vars.txt
+docker run -i --rm abdennour/envsubst < file_includes_env_vars.txt
 
 # assume "Hello $NAME. My home is ${HOME}" is the content of "file.txt"
-docker run -i --rm -e NAME=Abdou abdennour/envsubst envsubst < file.txt
+docker run -i --rm -e NAME=Abdou abdennour/envsubst < file.txt
 # the above command outputs :
 # "Hello Abdou. My home is /root"
 ```
