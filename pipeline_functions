@@ -4,16 +4,20 @@
 #   $0 <dockerfile-target> <final-image-tag>
 #
 # must be imported from inside eachy ./<image-folder>/hook/build script
+export $(cat ../../.env | xargs)
+export COMPOSE_FILE=../../docker-compose.yaml target=$1 IMMUTABLE_TAG=$2;
+export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG} IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
+
 build_function()
 {
   echo "------ HOOK START - BUILD -------"
-  export $(cat ../../.env | xargs)
-  export COMPOSE_FILE=../../docker-compose.yaml target=$1 IMMUTABLE_TAG=$2;
-  export IMMUTABLE_IMAGE_NAME=${DOCKER_REPO}:${IMMUTABLE_TAG} IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
   export BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
   echo '--- Env vars just before building'
   printenv
   docker-compose build builder;
+  # functional test
+  test_function ${IMMUTABLE_IMAGE_NAME}
+  # release
   docker tag ${IMMUTABLE_IMAGE_NAME} ${IMAGE_NAME}
 
   echo "---publish immutable artifact ----"
@@ -21,6 +25,17 @@ build_function()
   echo "------ HOOK END - BUILD -------"
 }
 
+test_function()
+{
+  if [ -f "specs.yaml" ]; then
+    docker-compose run --rm container-structure-test test \
+      --image ${image_name} --config docker-images/${IMAGE_NAME_ONLY}/specs.yaml
+  else
+    echo "WARNING: no contrainer structure tests to run"
+    echo "INFO: please write tests in docker-images/${IMAGE_NAME_ONLY}/specs.yaml file"
+  fi
+
+}
 
 # NOTE
 # DOCKER_REPO=index.docker.io/abdennour/envsubt

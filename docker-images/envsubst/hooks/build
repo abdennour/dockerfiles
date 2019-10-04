@@ -1,8 +1,6 @@
 #!/usr/bin/env sh
-. ../../build_function
+. ../../pipeline_functions
 
-echo "which build_function ----------------"
-which build_function;
 
 build_function alpine-perl alpine-${ALPINE_VERSION}-perl
 # build    target             tag

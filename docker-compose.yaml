@@ -27,9 +27,9 @@ services:
         DOCKER: ${DOCKER}
         ALPINE_VERSION: ${ALPINE_VERSION}
       target: ${target}
-  test:
+  container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
-    - .:/data
-    working_dir: /data
+    - .:/code
+    working_dir: /code
    # args: ['test', '--image', 'gcr.io/$PROJECT_ID/image', '--config', 'test_config.yaml']
