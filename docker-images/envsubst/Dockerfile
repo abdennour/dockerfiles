@@ -2,6 +2,8 @@
 ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION} as alpine-perl
 
-RUN apk --no-cache --update add bash perl
-COPY entrypoint.sh /usr/bin/envsubt
-ENTRYPOINT [ "bash", "/usr/bin/envsubt" ]
+RUN apk --no-cache --update add perl
+COPY entrypoint.sh /usr/bin/envsubst
+RUN chmod +x /usr/bin/envsubst
+
+ENTRYPOINT [ "/bin/sh" ]

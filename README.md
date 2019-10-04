@@ -48,7 +48,7 @@ docker run --rm \
 # basic example
 cat file_includes_env_vars.txt | docker run --rm abdennour/envsubst
 # or 
-docker run --rm abdennour/envsubst < file_includes_env_vars.txt
+docker run -i --rm abdennour/envsubst envsubst < file_includes_env_vars.txt
 
 ```
 ## abdennour/jenkins
