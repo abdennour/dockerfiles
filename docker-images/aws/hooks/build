@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 . ../../pipeline_functions
 
+export $(cat ../../.env | xargs)
+
 build_function aws ${AWS_CLI_VERSION}
 # build    target             tag
