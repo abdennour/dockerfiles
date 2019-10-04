@@ -5,7 +5,8 @@
 #
 # must be imported from inside eachy ./<image-folder>/hook/build script
 export $(cat ../../.env | xargs)
-export COMPOSE_FILE=../../docker-compose.yaml  
+cp ../../docker-compose.yaml .
+cp ../../.env .
 export IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
 
 build_function()
@@ -30,7 +31,7 @@ test_function()
 {
   if [ -f "specs.yaml" ]; then
     docker-compose run --rm container-structure-test test \
-      --image ${image_name} --config docker-images/${IMAGE_NAME_ONLY}/specs.yaml
+      --image ${image_name} --config specs.yaml
   else
     echo "WARNING: no contrainer structure tests to run"
     echo "INFO: please write tests in docker-images/${IMAGE_NAME_ONLY}/specs.yaml file"
