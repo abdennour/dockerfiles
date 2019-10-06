@@ -10,7 +10,7 @@ https://github.com/moby/moby/issues/3378
 # basic example
 docker run --rm \
   -v "${HOME}/.aws:/root/.aws" \
-  abdennour/aws aws s3 ls
+  abdennour/aws s3 ls
 
 ```
 
