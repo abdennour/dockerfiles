@@ -50,14 +50,12 @@ docker run --rm \
   -e KUBECONFIG=/kube/config \
 abdennour/kubectl:${KUBECTL_VERSION} get pods
 # kubectl + aws-iam-authenticator for EKS
-tag=${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}-aws-iam-authenticator${AWS_IAM_AUTHENTICATOR_VERSION}
-
 docker run --rm \
   -v "${HOME}/.aws:/root/.aws" \
   -e AWS_PROFILE=my-aws-profile \
   -e AWS_DEFAULT_REGION=md-west-1 \
   -e CLUSTER_NAME=mycluster \
-abdennour/kubectl:${tag} get pods
+abdennour/kubectl:${KUBECTL_VERSION}-aws${AWS_CLI_VERSION} get pods
 ```
 
 ## abdennour/eksctl

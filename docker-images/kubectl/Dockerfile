@@ -2,7 +2,6 @@ FROM alpine:edge as kubectl
 
 RUN apk add --update ca-certificates bash gnupg jq \
   && apk add --update -t deps curl gettext \
-  && pip install awscli \
   && rm -rf /var/cache/apk/* 
 ARG KUBECTL_VERSION
 ENV KUBECTL_VERSION=${KUBECTL_VERSION}
@@ -21,7 +20,7 @@ RUN apk add --update py-pip \
 
 ARG AWS_IAM_AUTHENTICATOR_VERSION
 ENV AWS_IAM_AUTHENTICATOR_VERSION=${AWS_IAM_AUTHENTICATOR_VERSION}
-RUN curl -L https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/${AWS_IAM_AUTHENTICATOR_VERSION}/heptio-authenticator-aws_0.3.0_linux_amd64 -o /usr/local/bin/aws-iam-authenticator \
+RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator \
   & wait \
   && chmod +x /usr/local/bin/aws-iam-authenticator \
   && mkdir -p /kube
