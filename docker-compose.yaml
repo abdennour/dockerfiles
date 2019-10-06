@@ -29,6 +29,8 @@ services:
         DOCKER: ${DOCKER}
         ALPINE_VERSION: ${ALPINE_VERSION}
         EKSCTL_VERSION: ${EKSCTL_VERSION}
+        KUBECTL_VERSION: ${KUBECTL_VERSION}
+        AWS_IAM_AUTHENTICATOR_VERSION: ${AWS_IAM_AUTHENTICATOR_VERSION}
 
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test

@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ ! z "${AWS_DEFAULT_REGION}" ];then
+  aws configure set default.region ${AWS_DEFAULT_REGION}
+fi
+
+aws eks update-kubeconfig --name ${CLUSTER_NAME}
+
+exec kubectl "$@"

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function kubectl ${KUBECTL_VERSION}
+build_function kubectl-aws ${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}-aws-iam-authenticator${AWS_IAM_AUTHENTICATOR_VERSION}
+

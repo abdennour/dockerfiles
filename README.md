@@ -4,42 +4,72 @@ https://github.com/moby/moby/issues/3378
 
 # Availables Image Groups : 
 
+
+
 ## abdennour/aws
 
 ```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+
 # basic example
 docker run --rm \
   -v "${HOME}/.aws:/root/.aws" \
-  abdennour/aws s3 ls
+  abdennour/aws:${AWS_CLI_VERSION} s3 ls
 
 ```
 
 ## abdennour/docker`
 
 ```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+
 # basic example
 docker run --rm \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  abdennour/docker:19-dind docker images
+  abdennour/docker:${DOCKER_VERSION} docker images
 
 # docker + aws
 docker run --name docker-aws --rm -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "${HOME}/.aws:/root/.aws" \
-  abdennour/docker:19-dind-aws1.16.246 tail -f /dev/null
+  abdennour/docker:${DOCKER_VERSION}-aws${AWS_CLI_VERSION} tail -f /dev/null
 
 docker exec docker-aws sh -c '$(aws ecr get-login --no-include-email --region us-west-1)';
 docker exec docker-aws docker pull xxxxxxxx.dkr.ecr.us-west-1.amazonaws.com
 
 ```
 
-## abdennour/eksctl`
+## abdennour/kubectl
 
 ```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+
+# basic example
+docker run --rm \
+  -v "${HOME}/.kube:/kube" \
+  -e KUBECONFIG=/kube/config \
+abdennour/kubectl:${KUBECTL_VERSION} get pods
+# kubectl + aws-iam-authenticator for EKS
+tag=${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}-aws-iam-authenticator${AWS_IAM_AUTHENTICATOR_VERSION}
+
+docker run --rm \
+  -v "${HOME}/.aws:/root/.aws" \
+  -e AWS_PROFILE=my-aws-profile \
+  -e AWS_DEFAULT_REGION=md-west-1 \
+  -e CLUSTER_NAME=mycluster \
+abdennour/kubectl:${tag} get pods
+```
+
+## abdennour/eksctl
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+
 # basic example
 docker run --rm \
   -v "${HOME}/.aws:/root/.aws" \
-  abdennour/eksctl create cluster ...
+  -e AWS_PROFILE=my-aws-profile \  
+  abdennour/eksctl:${EKSCTL_VERSION} create cluster ...
 ```
 
 ## abdennour/envsubst
