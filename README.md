@@ -5,6 +5,25 @@ https://github.com/moby/moby/issues/3378
 # Availables Image Groups : 
 
 
+## abdennour/ansible
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+
+# basic example
+docker run -it --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "$(pwd):/playbook" \
+  -w /playbook \
+  -e DOCKER_GID_ON_HOST=$(cat /etc/group | grep docker: | cut -d: -f3) \
+  -e SSH_PRIVATE_KEY_B64=$(cat ~/.ssh/id_rsa | base64) \
+
+  abdennour/ansible:${ANSIBLE_VERSION} bash;
+### Then interactively
+ansible --version
+
+
+```
 
 ## abdennour/aws
 

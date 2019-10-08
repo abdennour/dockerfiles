@@ -11,7 +11,7 @@ export IMAGE_NAME_ONLY=$(echo $DOCKER_REPO | cut -d"/" -f3)
 
 lint_function()
 {
-  docker run --rm -i hadolint/hadolint hadolint --ignore DL3018 - < Dockerfile
+  docker run --rm -i hadolint/hadolint hadolint --ignore DL3018 $@ - < Dockerfile
 }
 
 build_function()
