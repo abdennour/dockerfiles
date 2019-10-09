@@ -20,7 +20,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/
         openssh-client \
         sudo \
         shadow \
-        sshpass
+        sshpass \
 	&& apk add --no-cache --virtual build-dependencies linux-headers build-base python3-dev libffi-dev openssl-dev py-psutil \
 	&& pip3 install --no-cache-dir --upgrade pip setuptools \
 	&& pip3 install --upgrade ansible==${ANSIBLE_VERSION} molecule==${MOLECULE_VERSION} yamllint==${YAMLLINT_VERSION} docker \
