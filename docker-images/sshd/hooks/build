@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function sshd-alpine alpine-${ALPINE_VERSION}
+# build    target             tag
