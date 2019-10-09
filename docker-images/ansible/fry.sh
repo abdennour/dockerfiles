@@ -18,10 +18,11 @@ if [ -n "$DOCKER_GID_ON_HOST" ]; then
 fi;
 
 # Initiate SSH keys to initialize ~/.ssh directory
-cat /dev/zero | ssh-keygen -q -N "";
+pvkey=${HOME}/.ssh/id_rsa
+cat /dev/zero | ssh-keygen -q -N "" -f ${pvkey} -P "" ;
 
 if [ -n "${SSH_PRIVATE_KEY_B64}" ]; then
-  echo -n "${SSH_PRIVATE_KEY_B64}" | base64 --decode > ~/.ssh/id_rsa;
+  echo -n "${SSH_PRIVATE_KEY_B64}" | base64 -d > ${pvkey};
   rm -f ~/.ssh/id_rsa.pub;
 fi
 
