@@ -1,8 +1,9 @@
 ARG ALPINE_VERSION
 FROM docker.io/alpine:${ALPINE_VERSION} as sshd-alpine
 
-RUN apk update && \
-    apk add bash git python openssh rsync augeas shadow && \
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
+	&& apk add --update --no-cache \
+    bash git python openssh rsync augeas shadow && \
     deluser $(getent passwd 33 | cut -d: -f1) && \
     delgroup $(getent group 33 | cut -d: -f1) 2>/dev/null || true && \
     mkdir -p ~root/.ssh /etc/authorized_keys && chmod 700 ~root/.ssh/ && \
