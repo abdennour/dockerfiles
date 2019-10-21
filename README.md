@@ -1,8 +1,4 @@
-https://www.packer.io/docs/builders/docker.html
-https://github.com/moby/moby/issues/3378
-
-
-# Availables Image Groups : 
+# Availables Image Groups
 
 
 ## abdennour/ansible
@@ -14,7 +10,7 @@ export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/mas
 docker run -it --rm \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "$(pwd):/playbook" \
-  -w /playbook \
+  -w /playbook 
   -e DOCKER_GID_ON_HOST=$(cat /etc/group | grep docker: | cut -d: -f3) \
   -e SSH_PRIVATE_KEY_B64=$(cat ~/.ssh/id_rsa | base64) \
 
@@ -58,25 +54,6 @@ docker exec docker-aws docker pull xxxxxxxx.dkr.ecr.us-west-1.amazonaws.com
 
 ```
 
-## abdennour/kubectl
-
-```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
-
-# basic example
-docker run --rm \
-  -v "${HOME}/.kube:/kube" \
-  -e KUBECONFIG=/kube/config \
-abdennour/kubectl:${KUBECTL_VERSION} get pods
-# kubectl + aws-iam-authenticator for EKS
-docker run --rm \
-  -v "${HOME}/.aws:/root/.aws" \
-  -e AWS_PROFILE=my-aws-profile \
-  -e AWS_DEFAULT_REGION=md-west-1 \
-  -e CLUSTER_NAME=mycluster \
-abdennour/kubectl:${KUBECTL_VERSION}-aws${AWS_CLI_VERSION} get pods
-```
-
 ## abdennour/eksctl
 
 ```sh
@@ -102,12 +79,54 @@ docker run -i --rm -e NAME=Abdou abdennour/envsubst < file.txt
 # the above command outputs :
 # "Hello Abdou. My home is /root"
 ```
+
 ## abdennour/jenkins
+TODO
+
+
+## abdennour/kubectl
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+
+# basic example
+docker run --rm \
+  -v "${HOME}/.kube:/kube" \
+  -e KUBECONFIG=/kube/config \
+abdennour/kubectl:${KUBECTL_VERSION} get pods
+# kubectl + aws-iam-authenticator for EKS
+docker run --rm \
+  -v "${HOME}/.aws:/root/.aws" \
+  -e AWS_PROFILE=my-aws-profile \
+  -e AWS_DEFAULT_REGION=md-west-1 \
+  -e CLUSTER_NAME=mycluster \
+abdennour/kubectl:${KUBECTL_VERSION}-aws${AWS_CLI_VERSION} get pods
+```
 
 ## abdennour/node
+TODO
 
 ## abdennour/remark
+TODO
 
+##  abdennour/rhel
+
+Ready to be used as Ansible Managed Host.
+
+```sh
+docker run -it --rm \
+  --name rhel8 \
+  -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+  -p 6666:80
+  --privileged \
+  abdennour/rhel:8
+
+docker exec -it rhel8 bash
+# then  :
+yum install nginx -y
+systemctl start nginx
+
+```
 
 
 # CI/CD 
