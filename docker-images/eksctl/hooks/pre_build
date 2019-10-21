@@ -3,4 +3,4 @@
 
 export $(cat ../../.env | xargs)
 # Lint
-lint_function
+# lint_function

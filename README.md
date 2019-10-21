@@ -63,7 +63,7 @@ export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/mas
 docker run --rm \
   -v "${HOME}/.aws:/root/.aws" \
   -e AWS_PROFILE=my-aws-profile \  
-  abdennour/eksctl:${EKSCTL_VERSION} create cluster ...
+  abdennour/eksctl:${EKSCTL_VERSION}-aws-${AWS_CLI_VERSION} create cluster ...
 ```
 
 ## abdennour/envsubst
