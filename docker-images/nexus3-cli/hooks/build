@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function nexus3-cli v${NEXUS3CLI_VERSION}
+# build    target             tag

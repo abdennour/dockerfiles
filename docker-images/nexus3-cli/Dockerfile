@@ -1,0 +1,10 @@
+FROM python:3.6-alpine as ansible
+
+ARG NEXUS3CLI_VERSION
+
+ENV NEXUS3CLI_VERSION=${NEXUS3CLI_VERSION}
+
+RUN \
+  pip install nexus3-cli==${NEXUS3CLI_VERSION}
+
+ENTRYPOINT [ "nexus3" ]

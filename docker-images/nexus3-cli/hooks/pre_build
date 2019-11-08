@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+# Lint DL3013 Pin versions in pip. Instead of `pip install <package>` use `pip install <package>==<version>`
+lint_function --ignore DL3013
