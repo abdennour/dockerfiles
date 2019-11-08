@@ -102,6 +102,25 @@ docker run --rm \
   -e CLUSTER_NAME=mycluster \
 abdennour/kubectl:${KUBECTL_VERSION}-aws${AWS_CLI_VERSION} get pods
 ```
+## abdennour/nexus3-cli
+
+This is an image for https://pypi.org/project/nexus3-cli/
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+alias nexus3=' docker run --rm -t -v nexus3-cli:/root  abdennour/nexus3-cli:${NEXUS3CLI_VERSION}'
+# login
+ nexus3  login
+# Nexus OSS URL (http://localhost:8081):
+# Nexus admin username (admin):
+# Nexus admin password (admin123):
+# Verify server certificate (True):
+
+# Configuration saved to /root/.nexus-cli
+
+#----
+```
+More about available commands: https://pypi.org/project/nexus3-cli/
+
 
 ## abdennour/node
 TODO
