@@ -1,4 +1,4 @@
-FROM python:3.6-alpine as ansible
+FROM python:3.6-alpine as nexus3-cli
 
 ARG NEXUS3CLI_VERSION
 
