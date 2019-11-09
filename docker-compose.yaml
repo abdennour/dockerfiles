@@ -33,6 +33,7 @@ services:
         ANSIBLE_VERSION: ${ANSIBLE_VERSION}
         MOLECULE_VERSION: ${MOLECULE_VERSION}
         YAMLLINT_VERSION: ${YAMLLINT_VERSION}
+        NEXUS3CLI_VERSION: ${NEXUS3CLI_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
