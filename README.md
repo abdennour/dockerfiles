@@ -1,10 +1,10 @@
 # Availables Image Groups
 
 
-## abdennour/ansible
+## [abdennour/ansible](https://hub.docker.com/r/abdennour/ansible)
 
 ```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
 
 # basic example
 docker run -it --rm \
@@ -21,10 +21,10 @@ ansible --version
 
 ```
 
-## abdennour/aws
+## [abdennour/aws](https://hub.docker.com/r/abdennour/aws)
 
 ```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
 
 # basic example
 docker run --rm \
@@ -33,10 +33,10 @@ docker run --rm \
 
 ```
 
-## abdennour/docker`
+## [abdennour/docker](https://hub.docker.com/r/abdennour/docker)
 
 ```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
 
 # basic example
 docker run --rm \
@@ -54,10 +54,10 @@ docker exec docker-aws docker pull xxxxxxxx.dkr.ecr.us-west-1.amazonaws.com
 
 ```
 
-## abdennour/eksctl
+## [abdennour/eksctl](https://hub.docker.com/r/abdennour/eksctl)
 
 ```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
 
 # basic example
 docker run --rm \
@@ -66,7 +66,7 @@ docker run --rm \
   abdennour/eksctl:${EKSCTL_VERSION}-aws-${AWS_CLI_VERSION} create cluster ...
 ```
 
-## abdennour/envsubst
+## [abdennour/envsubst](https://hub.docker.com/r/abdennour/envsubst)
 
 ```sh
 # basic example
@@ -80,20 +80,21 @@ docker run -i --rm -e NAME=Abdou abdennour/envsubst < file.txt
 # "Hello Abdou. My home is /root"
 ```
 
-## abdennour/jenkins
+## [abdennour/jenkins](https://hub.docker.com/r/abdennour/jenkins)
 TODO
 
 
-## abdennour/kubectl
+## [abdennour/kubectl](https://hub.docker.com/r/abdennour/kubectl)
 
 ```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
 
 # basic example
 docker run --rm \
   -v "${HOME}/.kube:/kube" \
   -e KUBECONFIG=/kube/config \
 abdennour/kubectl:${KUBECTL_VERSION} get pods
+
 # kubectl + aws-iam-authenticator for EKS
 docker run --rm \
   -v "${HOME}/.aws:/root/.aws" \
@@ -102,11 +103,11 @@ docker run --rm \
   -e CLUSTER_NAME=mycluster \
 abdennour/kubectl:${KUBECTL_VERSION}-aws${AWS_CLI_VERSION} get pods
 ```
-## abdennour/nexus3-cli
+## [abdennour/nexus3-cli](https://hub.docker.com/r/abdennour/nexus3-cli)
 
 This is an image for https://pypi.org/project/nexus3-cli/
 ```sh
-export $(curl -SsL https://raw.githubusercontent.com/abdennour/bakery-images/master/.env | xargs);
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
 alias nexus3=' docker run --rm -t -v nexus3-cli:/root  abdennour/nexus3-cli:v${NEXUS3CLI_VERSION}'
 # login
  nexus3  login
@@ -123,13 +124,13 @@ alias nexus3=' docker run --rm -t -v nexus3-cli:/root  abdennour/nexus3-cli:v${N
 More about available commands: https://pypi.org/project/nexus3-cli/
 
 
-## abdennour/node
+## [abdennour/node](https://hub.docker.com/r/abdennour/node)
 TODO
 
-## abdennour/remark
+## [abdennour/remark](https://hub.docker.com/r/abdennour/remark)
 TODO
 
-##  abdennour/rhel
+## [abdennour/rhel](https://hub.docker.com/r/abdennour/rhel)
 
 Ready to be used as Ansible Managed Host.
 
