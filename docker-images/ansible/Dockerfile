@@ -1,11 +1,21 @@
-FROM python:3.6-alpine as ansible
-
+FROM python:3.6-alpine as ansible-slim
 ARG ANSIBLE_VERSION
+ENV ANSIBLE_VERSION=${ANSIBLE_VERSION}
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
+	&& apk add --update --no-cache --virtual build-dependencies linux-headers build-base python3-dev libffi-dev openssl-dev py-psutil \
+	&& pip3 install --no-cache-dir --upgrade pip setuptools \
+	&& pip3 install --upgrade ansible==${ANSIBLE_VERSION} \
+	&& apk del build-dependencies \
+    && rm -rf /var/cache/apk/* \
+    && rm -r /root/.cache \
+    && ansible --version
+
+FROM ansible-slim as ansible
+
 ARG MOLECULE_VERSION
 ARG YAMLLINT_VERSION
 
-ENV ANSIBLE_VERSION=${ANSIBLE_VERSION} \
-    MOLECULE_VERSION=${MOLECULE_VERSION} \
+ENV MOLECULE_VERSION=${MOLECULE_VERSION} \
     YAMLLINT_VERSION=${YAMLLINT_VERSION}
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
@@ -23,12 +33,11 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/
         sshpass \
 	&& apk add --no-cache --virtual build-dependencies linux-headers build-base python3-dev libffi-dev openssl-dev py-psutil \
 	&& pip3 install --no-cache-dir --upgrade pip setuptools \
-	&& pip3 install --upgrade ansible==${ANSIBLE_VERSION} molecule==${MOLECULE_VERSION} yamllint==${YAMLLINT_VERSION} docker \
+	&& pip3 install --upgrade molecule==${MOLECULE_VERSION} yamllint==${YAMLLINT_VERSION} docker \
 	&& pip3 install ansible-lint==4.0.1 \
 	&& apk del build-dependencies \
     && rm -rf /var/cache/apk/* \
     && rm -r /root/.cache \
-    && ansible --version \
     && molecule --version \
     && yamllint --version
 

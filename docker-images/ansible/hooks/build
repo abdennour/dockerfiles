@@ -4,4 +4,6 @@
 export $(cat ../../.env | xargs)
 
 build_function ansible ${ANSIBLE_VERSION}
+
+build_function ansible-slim ${ANSIBLE_VERSION}-slim
 # build    target             tag
