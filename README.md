@@ -1,29 +1,36 @@
 # Availables Image Groups
 
 - [abdennour/ansible](https://hub.docker.com/r/abdennour/ansible)
+
     |_ **abdennour/ansible:x.y.z** (Full for DEV and CI)
     |_ **abdennour/ansible:x.y.z-slim** (Light)
 
 - [abdennour/aws](https://hub.docker.com/r/abdennour/aws)
+
     |_ **abdennour/aws:x.y.z**
 
 - [abdennour/docker](https://hub.docker.com/r/abdennour/docker)
+
     |_ **abdennour/docker:x.y-dind**
     |_ **abdennour/docker:x.y-dind-awsx.y.z**
 
 - [abdennour/eksctl](https://hub.docker.com/r/abdennour/eksctl)
+
     |_ **abdennour/eksctl:x.y.z-aws-x.y.z**
 
 - [abdennour/envsubst](https://hub.docker.com/r/abdennour/envsubst)
 
 - [abdennour/kubectl](https://hub.docker.com/r/abdennour/kubectl)
+
     |_ **abdennour/kubectl:vx.y.z**
     |_ **abdennour/kubectl:vx.y.z-awsx.y.z**
 
 - [abdennour/nexus3-cli](https://hub.docker.com/r/abdennour/nexus3-cli)
+
     |_ **abdennour/nexus3-cli:vx.y.z**
 
 - [abdennour/rhel](https://hub.docker.com/r/abdennour/rhel)
+
     |_ **abdennour/rhel:x**
 
 
