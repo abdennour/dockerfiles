@@ -3,4 +3,5 @@
 
 export $(cat ../../.env | xargs)
 build_function eksctl ${EKSCTL_VERSION}-aws-${AWS_CLI_VERSION}
+build_function eksctl-kubectl ${EKSCTL_VERSION}-aws-${AWS_CLI_VERSION}-kubectl-${KUBECTL_VERSION}
 # build    target             tag

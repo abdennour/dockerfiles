@@ -16,7 +16,8 @@
 
 - [abdennour/eksctl](https://hub.docker.com/r/abdennour/eksctl)
 
-    |_ **abdennour/eksctl:x.y.z-aws-x.y.z**
+    * |_ **abdennour/eksctl:x.y.z-aws-x.y.z**
+    * |_ **abdennour/eksctl:x.y.z-aws-x.y.z-kubectl-x.y.z**    
 
 - [abdennour/envsubst](https://hub.docker.com/r/abdennour/envsubst)
 
@@ -137,6 +138,23 @@ docker run --rm \
   -e AWS_PROFILE=my-aws-profile \  
   abdennour/eksctl:${EKSCTL_VERSION}-aws-${AWS_CLI_VERSION} create cluster ...
 ```
+
+ **abdennour/eksctl:x.y.z-aws-x.y.z-kubectl-x.y.z** 
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+
+# basic example
+docker run --rm \
+  -v "${HOME}/.aws:/root/.aws" \
+  -v "${HOME}/.kube:/kube" \
+  -e KUBECONFIG=/kube/config \
+  -e AWS_PROFILE=my-aws-profile \  
+  abdennour/eksctl:${EKSCTL_VERSION}-aws-${AWS_CLI_VERSION} \
+     get nodes
+```
+
+
 
 ## [abdennour/envsubst](https://hub.docker.com/r/abdennour/envsubst)
 

@@ -20,3 +20,14 @@ RUN apk -uv add --no-cache groff jq less bash && \
 COPY --from=downloads  /downloads/eksctl /usr/local/bin
 
 ENTRYPOINT [ "/usr/local/bin/eksctl" ]
+
+FROM eksctl as eksctl-kubectl
+
+RUN apk add --update ca-certificates bash gnupg jq \
+  && apk add --update -t deps curl gettext \
+  && rm -rf /var/cache/apk/* 
+ARG KUBECTL_VERSION
+ENV KUBECTL_VERSION=${KUBECTL_VERSION}
+RUN curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+  && chmod +x /usr/local/bin/kubectl
+ENTRYPOINT [ "/usr/local/bin/kubectl" ]
