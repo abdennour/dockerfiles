@@ -34,8 +34,8 @@ FROM docker as docker-compose
 WORKDIR /opt/tmp
 RUN apk --update --no-cache add ca-certificates
 COPY --from=downloads /downloads/. .
-RUN apk add glibc-2.30-r0.apk glibc-bin-2.30-r0.apk && rm -rf *.apk &&\
-    mv sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub &&\
+RUN mv sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub &&\ 
+    apk add glibc-2.30-r0.apk glibc-bin-2.30-r0.apk && rm -rf *.apk &&\
     mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose &&\
     chmod a+x /usr/local/bin/docker-compose
 
