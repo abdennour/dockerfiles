@@ -13,6 +13,8 @@
 
     * |_ **abdennour/docker:x.y-dind**
     * |_ **abdennour/docker:x.y-dind-awsx.y.z**
+    * |_ **abdennour/docker:x.y-dind-composex.y.z**
+    * |_ **abdennour/docker:x.y-dind-composex.y.z-awsx.y.z**
 
 - [abdennour/eksctl](https://hub.docker.com/r/abdennour/eksctl)
 

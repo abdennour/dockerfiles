@@ -5,4 +5,8 @@ export $(cat ../../.env | xargs)
 
 build_function docker ${DOCKER}
 build_function docker-aws ${DOCKER}-aws${AWS_CLI_VERSION}
+build_function docker-compose ${DOCKER}-compose${DOCKER_COMPOSE_VERSION}
+build_function docker-compose-aws ${DOCKER}-compose${DOCKER_COMPOSE_VERSION}-aws${AWS_CLI_VERSION}
+
+# build_function     target           tag
 

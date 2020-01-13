@@ -34,6 +34,7 @@ services:
         MOLECULE_VERSION: ${MOLECULE_VERSION}
         YAMLLINT_VERSION: ${YAMLLINT_VERSION}
         NEXUS3CLI_VERSION: ${NEXUS3CLI_VERSION}
+        DOCKER_COMPOSE_VERSION: ${DOCKER_COMPOSE_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
