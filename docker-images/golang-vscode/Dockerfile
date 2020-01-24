@@ -9,7 +9,7 @@ FROM docker/compose:${DOCKER_COMPOSE_VERSION}-alpine AS docker-compose
 
 
 # See https://github.com/golang/go/issues/14481
-FROM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS race
+FROM golang:${GO_VERSION}-alpine3.10 AS race
 WORKDIR /tmp/race
 RUN apk --update -q --progress --no-cache add git g++
 RUN git clone --single-branch https://github.com/llvm-mirror/compiler-rt.git . &> /dev/null
