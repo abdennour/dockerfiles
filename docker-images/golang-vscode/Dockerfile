@@ -5,7 +5,7 @@ ARG DOCKER_COMPOSE_VERSION
 
 FROM docker:${DOCKER_VERSION} AS docker-cli
 
-FROM docker/compose:${DOCKER_COMPOSE_VERSION}-rc4-alpine AS docker-compose
+FROM docker/compose:${DOCKER_COMPOSE_VERSION}-alpine AS docker-compose
 
 
 # See https://github.com/golang/go/issues/14481
