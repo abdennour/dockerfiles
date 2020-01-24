@@ -23,6 +23,10 @@
 
 - [abdennour/envsubst](https://hub.docker.com/r/abdennour/envsubst)
 
+- [abdennour/golang-vscode](https://hub.docker.com/r/abdennour/golang-vscode)
+
+    * |_ **abdennour/golang-vscode:x.y.z-dind-x.y.z-alpine-x.y**    
+
 - [abdennour/kubectl](https://hub.docker.com/r/abdennour/kubectl)
 
     * |_ **abdennour/kubectl:vx.y.z**
@@ -171,6 +175,42 @@ docker run -i --rm -e NAME=Abdou abdennour/envsubst < file.txt
 # the above command outputs :
 # "Hello Abdou. My home is /root"
 ```
+
+
+## [abdennour/golang-vscode](https://hub.docker.com/r/abdennour/golang-vscode)
+
+**abdennour/golang-vscode:x.y.z-dind-x.y.z-alpine-x.y**
+
+- Install Remote Containers Plugin for VSCode editor
+- Under your repo, Add the file `.devcontainer/devcontainer.json` with this content
+```json
+{
+  "name": "Your project Dev",
+  "image": "abdennour/golang-vscode",
+  "appPort": 8000,
+  "extensions": [
+      "ms-vscode.go",
+      "davidanson.vscode-markdownlint",
+      "shardulm94.trailing-spaces",
+      "IBM.output-colorizer"
+  ],
+  "settings": {
+      "go.useLanguageServer": true
+  },
+  "postCreateCommand": "go mod download",
+  "runArgs": [
+      "-u",
+      "vscode",
+      "--cap-add=SYS_PTRACE",
+      "--security-opt",
+      "seccomp=unconfined",
+      "-v",
+      "/var/run/docker.sock:/var/run/docker.sock"
+  ]
+}
+```
+- Restart your VSCode or open the repository again.
+- Enjoy
 
 ## [abdennour/jenkins](https://hub.docker.com/r/abdennour/jenkins)
 TODO

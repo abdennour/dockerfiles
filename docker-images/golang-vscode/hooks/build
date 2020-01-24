@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function golang-vscode ${GO_VERSION}-dind-${DOCKER_VERSION}-alpine-${ALPINE_VERSION}
+# build    target             tag

@@ -26,7 +26,7 @@ services:
         NODE_TAG: ${NODE_TAG}
         PYTHON_TAG: ${PYTHON_TAG}
         AWS_CLI_VERSION: ${AWS_CLI_VERSION}
-        DOCKER: ${DOCKER}
+        DOCKER_VERSION: ${DOCKER_VERSION}
         ALPINE_VERSION: ${ALPINE_VERSION}
         EKSCTL_VERSION: ${EKSCTL_VERSION}
         KUBECTL_VERSION: ${KUBECTL_VERSION}
@@ -35,6 +35,7 @@ services:
         YAMLLINT_VERSION: ${YAMLLINT_VERSION}
         NEXUS3CLI_VERSION: ${NEXUS3CLI_VERSION}
         DOCKER_COMPOSE_VERSION: ${DOCKER_COMPOSE_VERSION}
+        GO_VERSION: ${GO_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:

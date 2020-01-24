@@ -1,5 +1,5 @@
-ARG DOCKER
-FROM docker:${DOCKER} as docker
+ARG DOCKER_VERSION
+FROM docker:${DOCKER_VERSION}-dind as docker
 
 RUN apk --update --no-cache add bash
 
