@@ -36,6 +36,7 @@ services:
         NEXUS3CLI_VERSION: ${NEXUS3CLI_VERSION}
         DOCKER_COMPOSE_VERSION: ${DOCKER_COMPOSE_VERSION}
         GO_VERSION: ${GO_VERSION}
+        HELM_VERSION: ${HELM_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:

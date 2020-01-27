@@ -5,4 +5,5 @@ export $(cat ../../.env | xargs)
 
 build_function kubectl ${KUBECTL_VERSION}
 build_function kubectl-aws ${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}
+build_function kubectl-aws-helm ${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}-helm-${HELM_VERSION}
 
