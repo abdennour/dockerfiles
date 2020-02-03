@@ -1,3 +1,5 @@
+# https://storage.googleapis.com/kubernetes-release/release/stable.txt
+
 FROM alpine:edge as kubectl
 
 RUN apk add --update ca-certificates bash gnupg jq \
