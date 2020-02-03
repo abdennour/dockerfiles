@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function desktop ${ANSIBLE_VERSION}
+
+build_function ansible-slim ${ANSIBLE_VERSION}-slim
+# build    target             tag

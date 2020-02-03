@@ -37,6 +37,7 @@ services:
         DOCKER_COMPOSE_VERSION: ${DOCKER_COMPOSE_VERSION}
         GO_VERSION: ${GO_VERSION}
         HELM_VERSION: ${HELM_VERSION}
+        UBUNTU_DESKTOP_VERSION: ${UBUNTU_DESKTOP_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
