@@ -1,0 +1,6 @@
+ARG ALPINE_VERSION
+FROM alpine:${ALPINE_VERSION} as git
+
+ARG GIT_VERSION
+ENV GIT_VERSION=${GIT_VERSION}-r0
+RUN apk --update --no-cache add git=${GIT_VERSION}

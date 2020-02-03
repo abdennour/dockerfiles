@@ -23,6 +23,10 @@
 
 - [abdennour/envsubst](https://hub.docker.com/r/abdennour/envsubst)
 
+- [abdennour/git](https://hub.docker.com/r/abdennour/git)
+
+    * |_ **abdennour/git:x.y.z**    
+
 - [abdennour/golang-vscode](https://hub.docker.com/r/abdennour/golang-vscode)
 
     * |_ **abdennour/golang-vscode:x.y.z-dind-x.y.z-alpine-x.y**    
@@ -177,6 +181,19 @@ docker run -i --rm -e NAME=Abdou abdennour/envsubst < file.txt
 # "Hello Abdou. My home is /root"
 ```
 
+## [abdennour/git](https://hub.docker.com/r/abdennour/git)
+
+**abdennour/git:x.y.z**
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+alias git='docker run -it -v $(pwd):/code -w /code abdennour/git:${GIT_VERSION}'
+
+git --version
+git remote -v
+git log
+# so on
+```
 
 ## [abdennour/golang-vscode](https://hub.docker.com/r/abdennour/golang-vscode)
 
