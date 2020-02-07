@@ -3,7 +3,6 @@
 
 export $(cat ../../.env | xargs)
 
-build_function desktop ${ANSIBLE_VERSION}
+build_function ubuntu-desktop-devtools ${DESKTOP_VERSION}-devtools
 
-build_function ansible-slim ${ANSIBLE_VERSION}-slim
 # build    target             tag
