@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+if [ -n "$DOCKER_GID_ON_HOST" ]; then
+
+  echo "Create group for docker with gid $DOCKER_GID_ON_HOST"
+  sudo groupadd -g $DOCKER_GID_ON_HOST docker && sudo grpconv
+  sudo usermod -a  -G $DOCKER_GID_ON_HOST user
+  dockerGroupName=$(cat /etc/group | grep :$DOCKER_GID_ON_HOST: | cut -d: -f1)
+
+fi;
+
+
+
+cmdLine=$(/dockerstartup/vnc_startup.sh "$@")	
+if [ -n "$dockerGroupName" ]; then 
+  exec sg $dockerGroupName "$cmdLine"
+else
+  exec $cmdLine
+fi
