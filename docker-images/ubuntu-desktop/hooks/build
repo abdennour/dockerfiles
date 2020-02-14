@@ -3,6 +3,7 @@
 
 export $(cat ../../.env | xargs)
 
-build_function ubuntu-desktop-devtools ${UBUNTU_DESKTOP_VERSION}-devtools
+
+build_function ubuntu-desktop-devtools ${UBUNTU_DESKTOP_VERSION}-devtools-$(echo $SOURCE_COMMIT| cut -c1-4)
 
 # build    target             tag
