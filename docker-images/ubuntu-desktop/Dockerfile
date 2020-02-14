@@ -16,4 +16,5 @@ RUN adduser --gecos '' --disabled-password -uid 1000 user \
 COPY docker-entrypoint /dockerstartup/
 RUN chmod a+x /dockerstartup/docker-entrypoint
 USER 1000
+ENV SUDO_FORCE_REMOVE yes
 ENTRYPOINT [ "/dockerstartup/docker-entrypoint" ]

@@ -10,11 +10,19 @@ if [ -n "$DOCKER_GID_ON_HOST" ]; then
 
 fi;
 
+if [ -n "${EXTRA_PATH}" ]; then
+  export PATH=${EXTRA_PATH}:${PATH}
 
+fi;
 
-cmdLine=$(/dockerstartup/vnc_startup.sh "$@")	
+if [ "${SUDO_FORCE_REMOVE}" = "yes" ]; then
+  # sudo apt-get remove --purge sudo -y
+  sudo sed -i '/user\ ALL/d' /etc/sudoers
+fi
+
+baseEntryPoint=$(/dockerstartup/vnc_startup.sh "$@")	
 if [ -n "$dockerGroupName" ]; then 
-  exec sg $dockerGroupName "$cmdLine"
+  exec sg $dockerGroupName "$baseEntryPoint"
 else
-  exec $cmdLine
+  exec $baseEntryPoint
 fi
