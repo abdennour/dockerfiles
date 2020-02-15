@@ -31,6 +31,10 @@
 
     * |_ **abdennour/golang-vscode:x.y.z-dind-x.y.z-alpine-x.y**    
 
+- [abdennour/kind-cli](https://hub.docker.com/r/abdennour/kind-cli)
+
+    * |_ **abdennour/kind-cli:vx.y.z**
+
 - [abdennour/kubectl](https://hub.docker.com/r/abdennour/kubectl)
 
     * |_ **abdennour/kubectl:vx.y.z**
@@ -44,6 +48,10 @@
 - [abdennour/rhel](https://hub.docker.com/r/abdennour/rhel)
 
     * |_ **abdennour/rhel:x**
+
+- [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)
+
+    * |_ **abdennour/ubuntu-desktop:x.y.z-devtools-<commid-id>**
 
 
 # Examples
@@ -116,7 +124,7 @@ export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/maste
 # basic example
 docker run --rm \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  abdennour/docker:${DOCKER_VERSION} docker images
+  abdennour/docker:${DOCKER_VERSION}-dind docker images
 
 ```
 
@@ -222,6 +230,32 @@ abdennour/kubectl:${KUBECTL_VERSION} get pods
 
 ```
 
+## [abdennour/kind-cli](https://hub.docker.com/r/abdennour/kind-cli)
+
+**abdennour/kind-cli:vx.y.z**
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+
+# basic example
+alias kind='docker run --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v "${HOME}/.kube:/kube" \
+abdennour/kind-cli:${KIND_CLI_VERSION}'
+
+cat <<EOF | kind create cluster --config -                   
+kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+EOF
+
+export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
+
+```
+
 **abdennour/kubectl:vx.y.z-awsx.y.z**
 
 ```sh
@@ -285,6 +319,35 @@ docker exec -it rhel8 systemctl start nginx
 
 # In the host navigate to : http://localhost:6666
 ```
+
+## [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)
+
+**abdennour/ubuntu-desktop:x.y.z-devtools-<commid-id>**
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+
+docker run -it --rm -name daemon -d \
+  -v vol-certs:/certs \
+  abdennour/docker:${DOCKER_VERSION}-dind
+
+docker run -it --rm -d --name desktop \
+  -v vol-certs:/certs \
+  -e VNC_RESOLUTION=1920x1080 \
+  # -e VNC_VIEW_ONLY=true \
+  -e DOCKER_HOST=tcp://daemon:2376 \
+  -e DOCKER_TLS_VERIFY=1 \
+  -e DOCKER_TLS_CERTDIR=/certs \
+  -e DOCKER_CERT_PATH=/certs/client \
+  -e EXTRA_PATH=/home/user/bin \
+  -e SUDO_FORCE_REMOVE=no \
+  -p 9889:6901 \
+  --shm-size=256m \
+  abdennour/ubuntu-desktop
+
+# Now visit http://localhost:9889
+```
+
 
 
 # CI/CD 

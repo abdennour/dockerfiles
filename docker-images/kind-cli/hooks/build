@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+build_function kind-cli ${KIND_CLI_VERSION}
+# build    target             tag

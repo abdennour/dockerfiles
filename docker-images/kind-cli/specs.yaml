@@ -1,0 +1,7 @@
+schemaVersion: '2.0.0'
+commandTests:
+- name: "it has the right kind version"
+  command: "version"
+  # args:
+  #   - version
+  expectedOutput: [".*0\.7\.0*"]
