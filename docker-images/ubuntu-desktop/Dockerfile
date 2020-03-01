@@ -14,7 +14,8 @@ RUN adduser --gecos '' --disabled-password -uid 1000 user \
 ## switch back to default user
 
 COPY docker-entrypoint /dockerstartup/
-RUN chmod a+x /dockerstartup/docker-entrypoint
+RUN chmod a+x /dockerstartup/docker-entrypoint && \
+  rsync -vau /headless/ /home/user
 USER 1000
 ENV SUDO_FORCE_REMOVE yes
 ENTRYPOINT [ "/dockerstartup/docker-entrypoint" ]

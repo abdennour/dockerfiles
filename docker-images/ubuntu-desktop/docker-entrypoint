@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo rsync -vau /home/user/ /headless
+
 
 if [ -n "$DOCKER_GID_ON_HOST" ]; then
 
