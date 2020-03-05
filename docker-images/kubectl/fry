@@ -9,7 +9,7 @@ if [ ! -z "${CLUSTER_NAME}" ];then
   aws eks update-kubeconfig --name ${CLUSTER_NAME}
 fi
 
-if [ -f usr/bin/helm ]; then
+if [ -f /usr/bin/helm ]; then
   helm repo add stable https://kubernetes-charts.storage.googleapis.com/
   # Loop thru all env vars starts by HELM_REPO_ and parse repo name and repo link
   # .eg. HELM_REPO_stable=https://kubernetes-charts.storage.googleapis.com/
