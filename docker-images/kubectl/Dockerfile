@@ -45,5 +45,4 @@ RUN apk add --update --no-cache curl ca-certificates && \
     apk del curl && \
     rm -f /var/cache/apk/*
 
-ENTRYPOINT ["helm"]
 CMD ["--help"]

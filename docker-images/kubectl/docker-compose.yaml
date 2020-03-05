@@ -1,0 +1,48 @@
+version: '3.6'
+services:
+  # some env are injected by Docker Hub Build Service (SOURCE_COMMIT, DOCKER_REPO, IMAGE_NAME)
+  # other env are generated in hook/build script in each image folder 
+  #  e.g(target, BUILD_DATE, IMMUTABLE_IMAGE_NAME=DOCKER_REPO+TAG)
+  # the rest of env are from .env copy/paste
+  #  e.g (NODE_TAG)
+  builder:
+    image: ${IMMUTABLE_IMAGE_NAME}
+    build:
+      # context relatives to docker-images/${IMAGE_NAME_ONLY}/
+      context: .
+      target: ${target}
+      labels:
+        maintainer: "Abdennour Toumi <http://in.abdennoor.com>"
+        tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME_ONLY}/Dockerfile"
+        tn.kubernetes.license: "MIT"
+        tn.kubernetes.name: "abdennour/${IMAGE_NAME_ONLY}"
+        tn.kubernetes.url: "https://github.com/abdennour/bakery-images"
+        tn.kubernetes.vcs-url: "https://github.com/abdennour/bakery-images.git"
+        tn.kubernetes.vcs-type: Git
+        tn.kubernetes.build-date: ${BUILD_DATE}
+        tn.kubernetes.version: ${IMMUTABLE_IMAGE_NAME}
+        tn.kubernetes.vcs-ref: ${SOURCE_COMMIT}
+      args:
+        NODE_TAG: ${NODE_TAG}
+        PYTHON_TAG: ${PYTHON_TAG}
+        AWS_CLI_VERSION: ${AWS_CLI_VERSION}
+        DOCKER_VERSION: ${DOCKER_VERSION}
+        ALPINE_VERSION: ${ALPINE_VERSION}
+        EKSCTL_VERSION: ${EKSCTL_VERSION}
+        KIND_CLI_VERSION: ${KIND_CLI_VERSION}
+        KUBECTL_VERSION: ${KUBECTL_VERSION}
+        ANSIBLE_VERSION: ${ANSIBLE_VERSION}
+        MOLECULE_VERSION: ${MOLECULE_VERSION}
+        YAMLLINT_VERSION: ${YAMLLINT_VERSION}
+        NEXUS3CLI_VERSION: ${NEXUS3CLI_VERSION}
+        DOCKER_COMPOSE_VERSION: ${DOCKER_COMPOSE_VERSION}
+        GO_VERSION: ${GO_VERSION}
+        HELM_VERSION: ${HELM_VERSION}
+        UBUNTU_DESKTOP_VERSION: ${UBUNTU_DESKTOP_VERSION}
+        GIT_VERSION: ${GIT_VERSION}
+  container-structure-test:
+    image: gcr.io/gcp-runtimes/container-structure-test
+    volumes:
+    - .:/code
+    working_dir: /code
+   # args: ['test', '--image', 'gcr.io/$PROJECT_ID/image', '--config', 'test_config.yaml']
