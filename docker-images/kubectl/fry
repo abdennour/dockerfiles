@@ -22,6 +22,12 @@ if [ -f /usr/bin/helm ]; then
     helm repo update
   fi
 
+  printenv | grep HELM_PLUGIN_ | while read -r i; do
+    plugin_name=$(echo ${i} | sed 's#=.*##' | sed 's/HELM_PLUGIN_//')
+    plugin_install_command=$(echo ${i} | sed 's/^[^=]*=//g')
+    helm plugin install ${plugin_install_command}
+  done
+
   exec helm "$@"
 else
   exec kubectl "$@"
