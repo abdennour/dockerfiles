@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function helmfile-aws ${HELMFILE_VERSION}-aws-${AWS_CLI_VERSION}
+# build    target             tag
