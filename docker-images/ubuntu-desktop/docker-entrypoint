@@ -17,6 +17,10 @@ if [ -n "${EXTRA_PATH}" ]; then
 
 fi;
 
+if [ -f "${STARTUP_SCRIPT}" ]; then
+  bash ${STARTUP_SCRIPT} $@
+fi
+
 if [ "${SUDO_FORCE_REMOVE}" = "yes" ]; then
   # sudo apt-get remove --purge sudo -y
   sudo sed -i '/user\ ALL/d' /etc/sudoers
