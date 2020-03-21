@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function terraform-aws-iam-authenticator ${TERRAFORM_VERSION}-aws-iam-authenticator
+# build    target             tag

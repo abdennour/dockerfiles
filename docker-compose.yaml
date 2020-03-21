@@ -41,6 +41,7 @@ services:
         HELMFILE_VERSION: ${HELMFILE_VERSION}
         UBUNTU_DESKTOP_VERSION: ${UBUNTU_DESKTOP_VERSION}
         GIT_VERSION: ${GIT_VERSION}
+        TERRAFORM_VERSION: ${TERRAFORM_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
