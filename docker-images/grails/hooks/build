@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function grails ${GRAILS_VERSION}-java${GRAILS_JAVA_VERSION}
+# build    target             tag

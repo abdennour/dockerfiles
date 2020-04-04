@@ -25,7 +25,11 @@
 
 - [abdennour/git](https://hub.docker.com/r/abdennour/git)
 
-    * |_ **abdennour/git:x.y.z**    
+    * |_ **abdennour/git:x.y.z**   
+
+- [abdennour/grails](https://hub.docker.com/r/abdennour/grails)
+
+    * |_ **abdennour/grails:x.y.z**    
 
 - [abdennour/golang-vscode](https://hub.docker.com/r/abdennour/golang-vscode)
 
@@ -202,6 +206,21 @@ git remote -v
 git log
 # so on
 ```
+
+## [abdennour/grails](https://hub.docker.com/r/abdennour/grails)
+
+**abdennour/git:x.y.z**
+
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+# assuming current directory is a grails project
+docker run -it \
+  -v $(pwd):/app \
+  -p 8080:8080 \
+  abdennour/grails:${GRAILS_VERSION} run-app
+# so on
+```
+
 
 ## [abdennour/golang-vscode](https://hub.docker.com/r/abdennour/golang-vscode)
 
