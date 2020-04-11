@@ -5,4 +5,5 @@ export $(cat ../../.env | xargs)
 
 build_function rhel7 7
 build_function rhel8 8
+build_function rhel8-ssh 8-ssh
 # build    target             tag
