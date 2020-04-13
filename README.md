@@ -52,6 +52,7 @@
 - [abdennour/rhel](https://hub.docker.com/r/abdennour/rhel)
 
     * |_ **abdennour/rhel:x**
+    * |_ **abdennout/rhel:8-ssh**
 
 - [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)
 
@@ -337,6 +338,26 @@ docker exec -it rhel8 yum install nginx -y
 docker exec -it rhel8 systemctl start nginx
 
 # In the host navigate to : http://localhost:6666
+```
+
+**abdennour/rhel:x-ssh**
+- RHEL + SSHD is up
+
+```sh
+docker run --rm --name rhel-vm  \
+  -p 2525:22 \
+  -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+  --privileged \
+  -d abdennour/rhel:8-ssh
+
+# create user "myuser"
+docker exec -it rhel-vm useradd myuser
+# set password for the user
+docker exec -it rhel-vm sh -c 'echo "Pass1234"| passwd myuser --stdin'
+# Now SSH to container without exec:
+ssh myuser@localhost -p 2525
+##> Put Password: Pass1234
+🎊🎊🎊 You ssh ! DONE
 ```
 
 ## [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)

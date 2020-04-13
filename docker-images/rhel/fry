@@ -1,0 +1,5 @@
+#!/bin/bash
+
+(sleep 4; systemctl start sshd ; systemctl enable sshd) &
+
+exec /sbin/init $@
