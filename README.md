@@ -35,6 +35,16 @@
 
     * |_ **abdennour/golang-vscode:x.y.z-dind-x.y.z-alpine-x.y**    
 
+- [abdennour/helmfile](https://hub.docker.com/r/abdennour/helmfile)
+
+    * |_ **abdennour/helmfile:vx.y.z-aws-x.y.z**
+
+- [abdennour/helm](https://hub.docker.com/r/abdennour/helm)
+
+    * |_ **abdennour/helm:x.y.z**  
+    * |_ **abdennour/helm:x.y.z-awsx.y.z-kubectlvx.y.z**
+
+
 - [abdennour/kind-cli](https://hub.docker.com/r/abdennour/kind-cli)
 
     * |_ **abdennour/kind-cli:vx.y.z**
@@ -234,6 +244,58 @@ docker run -it \
 ## [abdennour/jenkins](https://hub.docker.com/r/abdennour/jenkins)
 TODO
 
+
+## [abdennour/helmfile](https://hub.docker.com/r/abdennour/helmfile)
+
+**abdennour/helmfile:vx.y.z-aws-x.y.z**
+
+## [abdennour/helm](https://hub.docker.com/r/abdennour/helm)
+
+**abdennour/helm:x.y.z**
+```sh
+function helm
+{
+  # setup
+  export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+
+  docker run --rm \
+    -e HELM_REPO_tn=https://charts.kubernetes.tn \
+    -e HELM_REPO_stable=https://kubernetes-charts.storage.googleapis.com/ \
+    -v $(pwd):/code \
+    -w /code \
+    abdennour/helm:${HELM_VERSION} $@
+}
+
+helm repo update  
+helm  template r1 stable/chart1
+
+# example with kubeconfig
+
+docker run .. \
+ -v ${HOME}/.kube:/root/.kube:ro \
+# -e KUBECONFIG=/root/.kube/config \
+ abdennour/helm:${HELM_VERSION} install r2 tn/chart1
+
+
+```
+**abdennour/helm:x.y.z-awsx.y.z-kubectlvx.y.z**
+
+Same doc as the other one, but you can bind also :
+- volume: `${HOME}/.awss:/root/.aws:ro`
+- env var: `AWS_RPOFILE`, `AWS_*s`s ,...
+
+Indeed, this image contains also `aws` and `kubectl` CLIs.
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs)
+
+docker run -it --rm \
+   -e HELM_REPO_stable=https://kubernetes-charts.storage.googleapis.com/ \
+    -v helm-config:/root/.config/helm \
+    -v helm-cache:/root/.cache/helm \
+   -v ~/.kube:/kube \
+  -e KUBECONFIG: /kube/config \
+abdennour/helm:${HELM_VERSION}-aws${AWS_CLI_VERSION}-kubectl${KUBECTL_VERSION}
+```
 
 ## [abdennour/kubectl](https://hub.docker.com/r/abdennour/kubectl)
 
