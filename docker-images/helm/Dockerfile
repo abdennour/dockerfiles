@@ -13,5 +13,5 @@ RUN apk add --update --no-cache curl git ca-certificates && \
     apk del curl && \
     rm -f /var/cache/apk/*
 COPY fry /
-ENTRYPOINT [ "sh /fry" ]
+ENTRYPOINT [ "/bin/ash /fry" ]
 CMD ["--help"]
