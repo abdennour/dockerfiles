@@ -26,6 +26,9 @@ ENTRYPOINT [ "/bin/ash", "/fry-helm-in-terraform" ]
 CMD ["--help"]
 
 FROM terraform-helm as terraform-helm-aws-iam-authenticator
+RUN apk add --no-cache --update curl
 RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator \
   & wait \
-  && chmod +x /usr/local/bin/aws-iam-authenticator
+  && chmod +x /usr/local/bin/aws-iam-authenticator \
+  && apk del curl \
+  && rm -f /var/cache/apk/*

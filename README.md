@@ -492,6 +492,20 @@ docker run -it --rm -d --name desktop \
 
 Managed By [Docker hub automated builds](https://docs.docker.com/docker-hub/builds/)
 
+But if you want to run it locally, these are steps: 
+
+- Choose which `IMAGE_SET` to run where `docker-images/${IMAGE_SET}` must be directory includes a subdirectory, named `hooks`.
+- Build it 
+
+```sh
+export IMAGE_SET=terraform # for example only
+export DOCKER_REPO=abdennour/${IMAGE_SET} SOURCE_COMMIT=$(git rev-parse HEAD);
+cd docker-images/${IMAGE_SET}
+bash hooks/build
+
+```
+
+
 #  Tests
 
 **Linting** : in `docker-images/<IMAGE>/hooks/pre_build`
