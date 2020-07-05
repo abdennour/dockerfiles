@@ -4,4 +4,7 @@
 export $(cat ../../.env | xargs)
 
 build_function terraform-aws-iam-authenticator ${TERRAFORM_VERSION}-aws-iam-authenticator
+build_function terraform-helm ${TERRAFORM_VERSION}-helm${HELM_VERSION}
+build_function terraform-helm-aws-iam-authenticator ${TERRAFORM_VERSION}-helm${HELM_VERSION}-aws-iam-auth
+
 # build    target             tag

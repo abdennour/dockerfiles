@@ -64,6 +64,12 @@
     * |_ **abdennour/rhel:x**
     * |_ **abdennout/rhel:8-ssh**
 
+- [abdennour/terraform](https://hub.docker.com/r/abdennour/terraform)
+
+    * |_ **abdennour/terraform:x.y.z-helmx.y.z**
+    * |_ **abdennout/terraform:x.y.z-aws-iam-authenticator**
+    * |_ **abdennout/terraform:x.y.z-helmx.y.z-aws-iam-auth**
+
 - [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)
 
     * |_ **abdennour/ubuntu-desktop:x.y.z-devtools-<commid-id>**
@@ -421,6 +427,36 @@ ssh myuser@localhost -p 2525
 ##> Put Password: Pass1234
 🎊🎊🎊 You ssh ! DONE
 ```
+
+## [abdennour/terraform](https://hub.docker.com/r/abdennour/terraform)
+
+**abdennour/terraform:x.y.z-helmx.y.z**
+
+- if you are using Terraform Helm provider, this docker container image for you:
+
+```sh
+function terraform
+{
+  # get latest versions from .env
+  export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+
+  docker run --rm \
+    -e HELM_REPO_tn=https://charts.kubernetes.tn \
+    -e HELM_REPO_stable=https://kubernetes-charts.storage.googleapis.com/ \
+    -v $(pwd):/code \
+    -w /code \
+    abdennour/terraform:${TERRAFORM_VERSION}-helm${HELM_VERSION} $@
+}
+# 
+terraform apply
+```
+**abdennout/terraform:x.y.z-aws-iam-authenticator**
+- terraform  image has aws-iam-authenticator binary in  the PATH without extra configuration.
+
+**abdennout/terraform:x.y.z-helmx.y.z-aws-iam-auth**
+
+- same like the first (**abdennour/terraform:x.y.z-helmx.y.z**) but it contains also the aws-iam-authenticator binary in  the PATH.
+
 
 ## [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)
 
