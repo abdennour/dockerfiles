@@ -62,13 +62,13 @@
 - [abdennour/rhel](https://hub.docker.com/r/abdennour/rhel)
 
     * |_ **abdennour/rhel:x**
-    * |_ **abdennout/rhel:8-ssh**
+    * |_ **abdennour/rhel:8-ssh**
 
 - [abdennour/terraform](https://hub.docker.com/r/abdennour/terraform)
 
     * |_ **abdennour/terraform:x.y.z-helmx.y.z**
-    * |_ **abdennout/terraform:x.y.z-aws-iam-authenticator**
-    * |_ **abdennout/terraform:x.y.z-helmx.y.z-aws-iam-auth**
+    * |_ **abdennour/terraform:x.y.z-aws-iam-authenticator**
+    * |_ **abdennour/terraform:x.y.z-helmx.y.z-aws-iam-auth**
 
 - [abdennour/ubuntu-desktop](https://hub.docker.com/r/abdennour/ubuntu-desktop)
 
@@ -450,10 +450,10 @@ function terraform
 # 
 terraform apply
 ```
-**abdennout/terraform:x.y.z-aws-iam-authenticator**
+**abdennour/terraform:x.y.z-aws-iam-authenticator**
 - terraform  image has aws-iam-authenticator binary in  the PATH without extra configuration.
 
-**abdennout/terraform:x.y.z-helmx.y.z-aws-iam-auth**
+**abdennour/terraform:x.y.z-helmx.y.z-aws-iam-auth**
 
 - same like the first (**abdennour/terraform:x.y.z-helmx.y.z**) but it contains also the aws-iam-authenticator binary in  the PATH.
 
