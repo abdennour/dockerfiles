@@ -4,7 +4,7 @@ ARG HELM_VERSION
 ENV BASE_URL="https://get.helm.sh" \
     TAR_FILE="helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
     KUBECONFIG=/root/.kube/config
-
+SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --update --no-cache curl git ca-certificates && \
     curl -L ${BASE_URL}/${TAR_FILE} |tar xvz && \
     mv linux-amd64/helm /usr/bin/helm && \
@@ -13,5 +13,7 @@ RUN apk add --update --no-cache curl git ca-certificates && \
     apk del curl && \
     rm -f /var/cache/apk/*
 COPY fry /
-ENTRYPOINT [ "/bin/ash /fry" ]
+ENTRYPOINT ["/fry" ]
 CMD ["--help"]
+
+FROM helm as helm-aws

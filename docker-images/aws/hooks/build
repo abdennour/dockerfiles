@@ -4,4 +4,5 @@
 export $(cat ../../.env | xargs)
 
 build_function aws ${AWS_CLI_VERSION}
+build_function aws-helm ${AWS_CLI_VERSION}-helm${HELM_VERSION}
 # build    target             tag
