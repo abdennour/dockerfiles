@@ -45,6 +45,10 @@
     * |_ **abdennour/helm:x.y.z-awsx.y.z-kubectlvx.y.z**
 
 
+- [abdennour/jq](https://hub.docker.com/r/abdennour/jq)
+
+    * |_ **abdennour/jq:alpine-3.12**
+
 - [abdennour/kind-cli](https://hub.docker.com/r/abdennour/kind-cli)
 
     * |_ **abdennour/kind-cli:vx.y.z**
@@ -315,6 +319,24 @@ docker run --rm \
   -v "${HOME}/.kube:/kube" \
   -e KUBECONFIG=/kube/config \
 abdennour/kubectl:${KUBECTL_VERSION} get pods
+
+```
+
+## [abdennour/jq](https://hub.docker.com/r/abdennour/jq)
+
+**abdennour/jq:alpine-3.12**
+
+```sh
+```sh
+export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
+
+echo "{\"name\": \"abdennour\"}" > /tmp/file.json
+
+docker run --rm -it -w /data \
+  -v /tmp:/data abdennour/jq:alpine-${ALPINE_VERSION} \
+  -r '.name' /data/file.json
+
+# it must show "abdennour" in stdout
 
 ```
 
