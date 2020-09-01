@@ -1,0 +1,82 @@
+#!/bin/sh
+# handleed volumes ----------------------
+# path: /opt/assets , files: login.html / httpd.conf
+
+# env vars required----------------------
+### RADIUS_SERVER_SECRET
+### RADIUS_SERVER_HOSTNAME
+### PROXY_URL (example: http://myapp:8080/)
+
+# env vars optional----------------------
+### UI_AUTH_TYPE (default: basic) (opts: basic, form)
+### RADIUS_SERVER_PORT (Default: 1812)
+### RADIUS_AUTH_TIMEOUT (default: 60) seconds
+### RADIUS_AUTH_RETRIES (default: 3)
+### RADIUS_COOKIE_VALID (default: 20) <minutes-for-which-cookie-is-valid>
+### SESSION_CRYPTO_PASSPHRASE (default: any-secret-passphrase)
+### SESSION_MAX_AGE (default: 1200 - 20 minutes)
+### SESSION_COOKIE_NAME (default: session)
+### SESSION_COOKIE_ATTRS (default: path=/) # https://httpd.apache.org/docs/2.4/mod/mod_session_cookie.html
+check_env_vars() {
+  if [ ! -f /opt/assets/httpd.conf ]; then
+    if [ -z "${RADIUS_SERVER_HOSTNAME}" ]; then
+      echo '$RADIUS_SERVER_HOSTNAME is not set'
+      exit 1
+    fi
+    if [ -z "${RADIUS_SERVER_SECRET}" ]; then
+      echo '$RADIUS_SERVER_SECRET is not set'
+      exit 1
+    fi
+    if [ -z "${PROXY_URL}" ]; then
+      echo '$PROXY_URL is not set'
+      exit 1
+    fi
+  fi
+
+}
+#---
+check_env_vars
+export UI_AUTH_TYPE=${UI_AUTH_TYPE:-"basic"}
+export RADIUS_SERVER_PORT=${RADIUS_SERVER_PORT:-"1812"}
+export RADIUS_AUTH_TIMEOUT=${RADIUS_AUTH_TIMEOUT:-"60"}
+export RADIUS_AUTH_RETRIES=${RADIUS_AUTH_RETRIES:-"3"}
+export RADIUS_COOKIE_VALID=${RADIUS_COOKIE_VALID:-"20"}
+export SESSION_CRYPTO_PASSPHRASE=${SESSION_CRYPTO_PASSPHRASE:-"any-secret-passphrase"}
+export SESSION_MAX_AGE=${SESSION_MAX_AGE:-"1200"}
+export SESSION_COOKIE_NAME=${SESSION_COOKIE_NAME:-"session"}
+export SESSION_COOKIE_ATTRS=${SESSION_COOKIE_ATTRS:-"path=/"}
+
+
+if [ "${UI_AUTH_TYPE}" = "form" ]; then
+  sed -i \
+          -e 's/^#\(LoadModule .*mod_request.so\)/\1/' \
+          -e 's/^#\(LoadModule .*mod_auth_form.so\)/\1/' \
+          -e 's/^#\(LoadModule .*mod_session.so\)/\1/' \
+          -e 's/^#\(LoadModule .*mod_session_cookie.so\)/\1/' \
+          -e 's/^#\(LoadModule .*mod_session_crypto.so\)/\1/' \
+          conf/httpd.conf
+fi
+
+# if login file is mounted
+if [ "${UI_AUTH_TYPE}" = "form" ] && [ -f /opt/assets/login.html ]; then 
+  cat /opt/assets/login.html > /usr/local/apache2/htdocs/login.html
+else
+  cat /opt/login.html | perl -pe 's/\$([_A-Z]+)/$ENV{$1}/g' | perl -pe 's/\$(\{)?([a-zA-Z_]\w*)(?(1)\})/$ENV{$2}/g' >> /usr/local/apache2/htdocs/login.html
+
+fi
+
+if [ ! -f /opt/assets/httpd.conf ]; then
+# means consider building config file from env vars
+# Substitute env var and append to conf file
+  if [ -f /opt/vhost-${UI_AUTH_TYPE}auth.conf.template ]; then
+    cat /opt/vhost-${UI_AUTH_TYPE}auth.conf.template | perl -pe 's/\$([_A-Z]+)/$ENV{$1}/g' | perl -pe 's/\$(\{)?([a-zA-Z_]\w*)(?(1)\})/$ENV{$2}/g' >> conf/httpd.conf
+  else
+    echo "ERROR: ${UI_AUTH_TYPE} is not supported. Try basic or form"
+  fi
+
+else
+ # if httpd config is mounted, consider it
+ cat /opt/assets/httpd.conf > conf/httpd.conf
+fi
+
+exec $@

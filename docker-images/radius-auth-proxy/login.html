@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Authentication with RADIUS</title>
+        <style>
+          body {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+          }
+          .container {
+            width: 400px;
+            height: 10vh;
+          }
+          .wrapper {
+            background-color: whitesmoke;
+            list-style-type: none;
+            padding: 10px;
+            border-radius: 3px;
+          }
+          .form-row {
+            display: flex;
+            justify-content: flex-end;
+            padding: .5em;
+          }
+          .form-row > label {
+            padding: .5em 1em .5em 0;
+            flex: 1;
+          }
+          .form-row > input {
+            flex: 2;
+          }
+          .form-row > input,
+          .form-row > button {
+            padding: .5em;
+          }
+          .form-row > button {
+          background: gray;
+          color: white;
+          border: 0;
+          }
+        </style>
+    </head>
+    <body>
+      <article class="container">
+        <form method="POST" action="/authcheck">
+          <ul class="wrapper">
+            <li class="form-row">
+                <label for="httpd_username">Username</label>
+                <input id="http_username" type="text" name="httpd_username" value="" />
+            </li>
+            <li class="form-row">
+                <label for="httpd_password">Password</label>
+                <input id="httpd_password" type="password" name="httpd_password" value="" />
+            </li>
+            <li class="form-row">
+                <button class="btn btn-success" type="submit" name="login" >Login</button>
+            </li>
+            </ul>
+        </form>
+      </article>
+    </body>
+</html>

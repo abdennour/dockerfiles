@@ -1,0 +1,67 @@
+Listen 8998
+<VirtualHost *:8998>
+  # AddRadiusAuth server:port shared_secret timeout[:retries]
+  # Example server (change to fit your needs):
+  AddRadiusAuth $RADIUS_SERVER_HOSTNAME:$RADIUS_SERVER_PORT $RADIUS_SERVER_SECRET $RADIUS_AUTH_TIMEOUT:$RADIUS_AUTH_RETRIES
+
+  # AddRadiusCookieValid time_in_minutes
+  AddRadiusCookieValid $RADIUS_COOKIE_VALID
+
+  ProxyPass /login.html !
+  ProxyPassReverse /login.html !
+  ProxyPass /authcheck !
+  ProxyPassReverse /authcheck !
+  ProxyPass / $PROXY_URL
+  ProxyPassReverse / $PROXY_URL
+  ProxyPreserveHost On
+  ProxyRequests On
+  # <Location ~ "^((?!/login.html).)*$">
+  <Location />
+      AuthType Form
+      AuthName "Radius Authentication"
+      AuthFormProvider radius
+      # AuthFormLoginRequiredLocation "/login.html"
+      AuthFormLoginRequiredLocation /login.html?req=%{REQUEST_URI}
+      AuthFormLoginSuccessLocation "/"
+      AuthBasicAuthoritative Off
+      AuthRadiusAuthoritative on
+      #  <minutes-for-which-cookie-is-valid>
+      AuthRadiusCookieValid $RADIUS_COOKIE_VALID
+      AuthRadiusActive On
+      require valid-user
+
+      Session On
+      # <maximum age in seconds for a session>
+      SessionMaxAge $SESSION_MAX_AGE
+      # On https://httpd.apache.org/docs/trunk/mod/mod_session_cookie.html
+      # SessionCookieMaxAge Off
+      SessionCookieName $SESSION_COOKIE_NAME $SESSION_COOKIE_ATTRS
+      SessionCryptoPassphrase $SESSION_CRYPTO_PASSPHRASE
+  </Location>
+  <Location /authcheck>
+      SetEnvIf Referer ^.*req=(.*)&?$ req=$1
+      SetHandler form-login-handler
+      AuthType Form
+      AuthName "Radius Authentication"
+      AuthFormProvider radius
+      AuthFormLoginRequiredLocation "/login.html"
+      AuthFormLoginSuccessLocation  %{ENV:req}
+      AuthBasicAuthoritative Off
+      AuthRadiusAuthoritative on
+      AuthRadiusCookieValid $RADIUS_COOKIE_VALID
+      AuthRadiusActive On
+      require valid-user
+
+      Session On
+      # <maximum age in seconds for a session>
+      SessionMaxAge $SESSION_MAX_AGE
+      # On https://httpd.apache.org/docs/trunk/mod/mod_session_cookie.html
+      # SessionCookieMaxAge Off
+      SessionCookieName $SESSION_COOKIE_NAME $SESSION_COOKIE_ATTRS
+      SessionCryptoPassphrase $SESSION_CRYPTO_PASSPHRASE
+  </Location>
+  <Location /login.html>
+      Require all granted
+  </Location>
+
+</VirtualHost>

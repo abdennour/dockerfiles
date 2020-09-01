@@ -1,0 +1,23 @@
+Listen 8998
+<VirtualHost *:8998>
+  # AddRadiusAuth server:port shared_secret timeout[:retries]
+  # Example server (change to fit your needs):
+  AddRadiusAuth $RADIUS_SERVER_HOSTNAME:$RADIUS_SERVER_PORT $RADIUS_SERVER_SECRET $RADIUS_AUTH_TIMEOUT:$RADIUS_AUTH_RETRIES
+
+  # AddRadiusCookieValid time_in_minutes
+  AddRadiusCookieValid $RADIUS_COOKIE_VALID
+  ProxyPass / $PROXY_URL
+  ProxyPassReverse / $PROXY_URL
+  ProxyPreserveHost On
+  ProxyRequests On
+  <Location />
+      AuthType Basic
+      AuthName "Radius Authentication"
+      AuthBasicProvider "radius"
+      AuthRadiusAuthoritative on
+      AuthRadiusCookieValid $RADIUS_COOKIE_VALID
+      AuthRadiusActive On
+      require valid-user
+  </Location>
+
+</VirtualHost>
