@@ -16,7 +16,8 @@ Listen 8998
   ProxyPreserveHost On
   ProxyRequests On
   # <Location ~ "^((?!/login.html).)*$">
-  <Location />
+  <Location ~ "^((?!/authcheck).)*$">
+  # <Location />
       AuthType Form
       AuthName "Radius Authentication"
       AuthFormProvider radius
