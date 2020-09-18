@@ -41,6 +41,10 @@ prepare_src_files() {
   # remove duplicated lines
   awk '!a[$0]++' ${final_src_env_file} > ${tmp_env_file}
   cat ${tmp_env_file} > ${final_src_env_file}
+  # example: filter env vars contains only REACT_APP
+  if [ ! -z "${ENV_VARS_FILTER}" ]; then
+    grep "${ENV_VARS_FILTER}" ${tmp_env_file} > ${final_src_env_file} 
+  fi
 }
 
 # $1: dest
@@ -74,7 +78,7 @@ build_js_object() {
       value=$(printf '%s\n' "${!varname}")
       # Otherwise use value from .env file
       [[ -z $value ]] && value=${varvalue}
-      
+
       # Append configuration property to JS file
       echo "  $varname: \"$value\"," >> ${dest}/${DEST_FILENAME}
     fi
@@ -131,12 +135,15 @@ case $i in
     refresh_period="${i#*=}" # in second
     shift # past argument=value
     ;;
+    -ef=*|--env-vars-filter=*)
+    export ENV_VARS_FILTER="${i#*=}" # in second
+    shift # past argument=value
+    ;;
     # include container env vars from printenv
     --env-vars)
     env_vars=yes
     shift # past argument with no value
-    ;;    
-   
+    ;;
     *)
           # unknown option
     ;;

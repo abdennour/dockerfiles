@@ -99,3 +99,13 @@ dotenv-to-js --src=.env.example \
 ### The process must not finish unless you type Ctrl+C 
 ### Refershing the env.js file is done every 100 seconds 
 ```
+## Example 7 - Filter env vars with `--env-vars-filter`
+
+```sh
+# run common script,  then :
+dotenv-to-js --env-vars-filter=REACT_APP_ --src=.env.example 
+
+# Validate
+### env.js must be created  
+### If any, only env vars contains REACT_APP_ will be added to env.js
+```
