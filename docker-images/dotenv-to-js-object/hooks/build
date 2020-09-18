@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+export COMMIT_ID_SHORT=${SOURCE_COMMIT:0:3}
+build_function dotenv-to-js-object ${SOURCE_COMMIT:0:3}
+# build    target             tag

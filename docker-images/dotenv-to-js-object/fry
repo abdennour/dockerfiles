@@ -1,0 +1,164 @@
+#!/bin/sh
+DEST_FILENAME="env.js"
+dest="."
+js_object='window.process=(window.process||{});window.process.env'
+run_as="job"
+final_src_env_file=/tmp/.env
+tmp_env_file=/tmp/env-$(date +%s)
+
+# $1: dest
+# $2: run_as
+# $3: refresh_period
+validation() {
+  dest=$1
+  run_as=$2
+  refresh_period=$3
+  if [ -f ${dest} ]; then
+    echo "-d | --dest value must be directory not file."
+    exit 1;
+  fi
+
+  if [ ! -z "${refresh_period}" ] && [ "${run_as}" = "job" ]; then
+    echo "WARN: -rp=*|--refresh-period does not have effect"
+    echo "   as it is not running as daemon"
+  fi
+}
+
+# $1: src
+# $2: envvars yes or no
+prepare_src_files() {
+  env_vars=$2
+  if [ $# -eq 0 ]; then
+    env_vars=yes
+  fi
+  ### prepare source ###
+  if [ -f "${1}" ]; then
+    cat ${1} > ${final_src_env_file}
+  fi
+  if [ "${env_vars}" = "yes" ]; then
+    (echo;printenv) >> ${final_src_env_file}
+  fi
+  # remove duplicated lines
+  awk '!a[$0]++' ${final_src_env_file} > ${tmp_env_file}
+  cat ${tmp_env_file} > ${final_src_env_file}
+}
+
+# $1: dest
+
+prepare_dest_files() {
+  ### prepare destination ###
+  dest=$1
+  mkdir -p ${dest}
+  rm -rf ${dest}/${DEST_FILENAME}
+  touch ${dest}/${DEST_FILENAME}
+
+}
+# $1: js_object
+# $2: dest
+build_js_object() {
+  js_object=$1
+  dest=$2
+  echo "${js_object} = {" > ${dest}/${DEST_FILENAME}
+  # Read each line in .env file
+  # Each line represents key=value pairs
+  while read -r line || [[ -n "$line" ]];
+  do
+    if [ ! -z "$line" ]; then
+      # Split env variables by character `=`
+      if printf '%s\n' "$line" | grep -q -e '='; then
+        varname=$(printf '%s\n' "$line" | sed -e 's/=.*//')
+        varvalue=$(printf '%s\n' "$line" | sed -e 's/^[^=]*=//')
+      fi
+
+      # Read value of current variable if exists as Environment variable
+      value=$(printf '%s\n' "${!varname}")
+      # Otherwise use value from .env file
+      [[ -z $value ]] && value=${varvalue}
+      
+      # Append configuration property to JS file
+      echo "  $varname: \"$value\"," >> ${dest}/${DEST_FILENAME}
+    fi
+  done < ${final_src_env_file}
+
+  echo "}" >> ${dest}/${DEST_FILENAME}
+}
+
+# $1: js_object
+# $2: dest
+# $3: src
+# $4: envvars yes or no
+build_js_object_periodically() {
+  prepare_src_files $3 $4
+  build_js_object $1 $2
+}
+
+# $1: refresh period in seconds
+# $2: body to be running each period $1
+daemonize() {
+  refresh_period=$1
+  shift
+  while :
+  do
+    $@
+    sleep  ${refresh_period}
+  done
+}
+
+cleanup() {
+  rm -rf ${tmp_env_file}
+}
+
+for i in "$@"
+do
+case $i in
+    -s=*|--src=*)
+    src="${i#*=}"
+    shift # past argument=value
+    ;;
+    -d=*|--dest=*)
+    dest="${i#*=}"
+    shift # past argument=value
+    ;;
+    -jo=*|--js-object=*)
+    js_object="${i#*=}"
+    shift # past argument=value
+    ;;
+    -a=*|--run-as=*)
+    run_as="${i#*=}" # job or daemon
+    shift # past argument=value
+    ;;
+    -rp=*|--refresh-period=*)
+    refresh_period="${i#*=}" # in second
+    shift # past argument=value
+    ;;
+    # include container env vars from printenv
+    --env-vars)
+    env_vars=yes
+    shift # past argument with no value
+    ;;    
+   
+    *)
+          # unknown option
+    ;;
+esac
+done
+
+validation ${dest} ${run_as} ${refresh_period}
+prepare_src_files ${src} ${env_vars}
+prepare_dest_files ${dest}
+
+build_js_object "${js_object}" ${dest}
+
+if [ "${run_as}" = "daemon" ]; then
+  refresh_period=${refresh_period:-"5"}
+  daemonize ${refresh_period} build_js_object_periodically "${js_object}" ${dest} ${src} ${env_vars}
+fi
+
+cleanup
+
+# if still there is arguments not processed,
+#  then consider them as CMD
+if [ $# -ge 1 ]; then
+  echo "running $@"
+  exec $@
+fi

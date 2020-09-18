@@ -16,6 +16,11 @@
     * |_ **abdennour/docker:x.y-dind-composex.y.z**
     * |_ **abdennour/docker:x.y-dind-composex.y.z-awsx.y.z**
 
+- [abdennour/dotenv-to-js-object](https://hub.docker.com/r/abdennour/dotenv-to-js-object)
+
+    * |_ **abdennour/dotenv-to-js-object**
+
+dotenv-to-js-object
 - [abdennour/eksctl](https://hub.docker.com/r/abdennour/eksctl)
 
     * |_ **abdennour/eksctl:x.y.z-aws-x.y.z**
@@ -168,6 +173,14 @@ docker exec docker-aws sh -c '$(aws ecr get-login --no-include-email --region us
 docker exec docker-aws docker pull xxxxxxxx.dkr.ecr.us-west-1.amazonaws.com
 
 ```
+
+## [abdennour/dotenv-to-js-object](https://hub.docker.com/r/abdennour/dotenv-to-js-object)
+
+**abdennour/dotenv-to-js-object**
+
+- It's a whole software.
+- Check its [README.md](docker-images/dotenv-to-js-object/README.md) there.
+
 
 ## [abdennour/eksctl](https://hub.docker.com/r/abdennour/eksctl)
 
