@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function nginx-distroless-unprivileged ${NGINX_VERSION}-${SOURCE_COMMIT:0:3}
+build_function nginx-distroless-unprivileged ${NGINX_VERSION}
+# build    target             tag

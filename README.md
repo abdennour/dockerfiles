@@ -521,27 +521,15 @@ docker run -it --rm -d --name desktop \
 # Now visit http://localhost:9889
 ```
 
+# Contributing
 
+If you ask how can i upgrade these versions. Or generally, how can i contribute.
+then, check [CONTRIBUTING.md](CONTRIBUTING.md)
 
-# CI/CD 
+# Authors
 
-Managed By [Docker hub automated builds](https://docs.docker.com/docker-hub/builds/)
+- Abdennour Toumi < http://kubernetes.tn | ceo@kubernetes.tn >
 
-But if you want to run it locally, these are steps: 
+# LICENSE
 
-- Choose which `IMAGE_SET` to run where `docker-images/${IMAGE_SET}` must be directory includes a subdirectory, named `hooks`.
-- Build it 
-
-```sh
-export IMAGE_SET=terraform # for example only
-export DOCKER_REPO=abdennour/${IMAGE_SET} SOURCE_COMMIT=$(git rev-parse HEAD);
-cd docker-images/${IMAGE_SET}
-bash hooks/build
-
-```
-
-
-#  Tests
-
-**Linting** : in `docker-images/<IMAGE>/hooks/pre_build`
-**Contatainer Structure Tests** in `docker-images/<IMAGE>/hooks/build`
+This software is licensed under MIT license.
