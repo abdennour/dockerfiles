@@ -33,6 +33,10 @@ docker exec -it secure-web ash
 
 docker exec -it secure-web ls
 # I said no way
+
+# However you are still be able to see logs
+docker logs -f secure-web
+# However you cannot see it with "docker exec cat" for example
 ```
 
 # Example 2 - Mount your Website as volume

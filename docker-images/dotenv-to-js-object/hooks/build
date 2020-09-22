@@ -2,6 +2,13 @@
 . ../../pipeline_functions
 
 export $(cat ../../.env | xargs)
-export COMMIT_ID_SHORT=${SOURCE_COMMIT:0:3}
-build_function dotenv-to-js-object ${SOURCE_COMMIT:0:3}
+
+if [ ! -z "${SOURCE_COMMIT}" ]; then
+  export COMMIT_ID_SHORT=v${SOURCE_COMMIT:0:3}
+else
+  timestamp=$(date +%s)
+  export COMMIT_ID_SHORT=v${timestamp:0:3}
+fi
+
+build_function dotenv-to-js-object ${COMMIT_ID_SHORT}
 # build    target             tag
