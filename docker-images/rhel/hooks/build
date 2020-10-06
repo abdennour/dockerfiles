@@ -3,7 +3,15 @@
 
 export $(cat ../../.env | xargs)
 
-build_function rhel7 7
+if [ ! -z "${SOURCE_COMMIT}" ]; then
+  export COMMIT_ID_SHORT=v${SOURCE_COMMIT:0:3}
+else
+  timestamp=$(date +%s)
+  export COMMIT_ID_SHORT=v${timestamp:0:3}
+fi
+# build_function rhel7 7
 build_function rhel8 8
+build_function rhel8 8-${COMMIT_ID_SHORT}
 build_function rhel8-ssh 8-ssh
+build_function rhel8-ssh 8-ssh-${COMMIT_ID_SHORT}
 # build    target             tag
