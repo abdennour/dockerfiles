@@ -1,5 +1,14 @@
 #!/bin/bash
 
 (sleep 4; systemctl start sshd ; systemctl enable sshd) &
+# bootstrap sudoer user if any
+if [ ! -z "${BOOTSTRAP_SUDOER}" ]; then
+  adduser ${BOOTSTRAP_SUDOER}
+  echo "${BOOTSTRAP_SUDOER} ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/${BOOTSTRAP_SUDOER}
+fi
+# bootstrap user if any
+if [ ! -z "${BOOTSTRAP_USER}" ]; then
+  adduser ${BOOTSTRAP_USER}
+fi
 
 exec /sbin/init $@
