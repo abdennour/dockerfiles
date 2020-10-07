@@ -1,5 +1,12 @@
-# FROM registry.access.redhat.com/ubi7/ubi-init as rhel7
+FROM registry.access.redhat.com/ubi7/ubi-init as rhel7
 
+FROM rhel7 as rhel7-ssh
+RUN yum install -y \
+      sudo \
+      http://mirror.centos.org/centos/7/os/x86_64/Packages/openssh-server-7.4p1-21.el7.x86_64.rpm
+COPY fry /sbin/fry
+RUN chmod a+x /sbin/fry
+ENTRYPOINT [ "/sbin/fry" ]
 
 FROM registry.access.redhat.com/ubi8/ubi-init as rhel8
 
@@ -17,4 +24,3 @@ COPY fry /sbin/fry
 RUN chmod a+x /sbin/fry
 ENTRYPOINT [ "/sbin/fry" ]
 
-FROM rhel8 as rhel8-ssh
