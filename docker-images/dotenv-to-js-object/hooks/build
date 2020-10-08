@@ -4,10 +4,10 @@
 export $(cat ../../.env | xargs)
 
 if [ ! -z "${SOURCE_COMMIT}" ]; then
-  export COMMIT_ID_SHORT=v${SOURCE_COMMIT:0:3}
+  export COMMIT_ID_SHORT=v$(echo $SOURCE_COMMIT | tail -c +2|head -c 3)
 else
-  timestamp=$(date +%s)
-  export COMMIT_ID_SHORT=v${timestamp:0:3}
+  timestamp=v$(date +%s)
+  export COMMIT_ID_SHORT=v$(echo $timestamp | tail -c +2|head -c 3)
 fi
 
 build_function dotenv-to-js-object ${COMMIT_ID_SHORT}
