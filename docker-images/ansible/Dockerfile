@@ -14,9 +14,11 @@ FROM ansible-slim as ansible
 
 ARG MOLECULE_VERSION
 ARG YAMLLINT_VERSION
+ARG ANSIBLE_LINT_VERSION
 
 ENV MOLECULE_VERSION=${MOLECULE_VERSION} \
-    YAMLLINT_VERSION=${YAMLLINT_VERSION}
+    YAMLLINT_VERSION=${YAMLLINT_VERSION} \
+    ANSIBLE_LINT_VERSION=${ANSIBLE_LINT_VERSION}
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
 	&& apk add --update --no-cache \
@@ -34,7 +36,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/
 	&& apk add --no-cache --virtual build-dependencies linux-headers build-base python3-dev libffi-dev openssl-dev py-psutil \
 	&& pip3 install --no-cache-dir --upgrade pip setuptools \
 	&& pip3 install --upgrade molecule==${MOLECULE_VERSION} yamllint==${YAMLLINT_VERSION} docker \
-	&& pip3 install ansible-lint==4.0.1 \
+	&& pip3 install ansible-lint==${ANSIBLE_LINT_VERSION} \
 	&& apk del build-dependencies \
     && rm -rf /var/cache/apk/* \
     && rm -r /root/.cache \

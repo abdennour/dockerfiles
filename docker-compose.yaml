@@ -46,6 +46,7 @@ services:
         GRAILS_JAVA_VERSION: ${GRAILS_JAVA_VERSION}
         HTTPD_VERSION: ${HTTPD_VERSION}
         NGINX_VERSION: ${NGINX_VERSION}
+        ANSIBLE_LINT_VERSION: ${ANSIBLE_LINT_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:
