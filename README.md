@@ -462,6 +462,26 @@ ssh myuser@localhost -p 2525
 ##> Put Password: Pass1234
 🎊🎊🎊 You ssh ! DONE
 ```
+- RHEL + SSHD is up + Bootstrap Passwordless sudoer user
+
+```sh
+docker run --rm --name rhel-vm  \
+  -p 2525:22 \
+  -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+  -v $(pwd)/keys:/data/ssh-key:rw \
+  --privileged \
+  -e BOOTSTRAP_USER=myuser \
+  -e BOOTSTRAP_USER_CAPS=sudoer,ssh-key \
+  -d abdennour/rhel:8-ssh
+
+# now try to ssh with the bootstrap user
+#     using the auto-generated private-key
+ssh -i $(pwd)/keys/myuser myuser@localhost -p 2525
+# it should work
+# myuser@<container-id>: $ ....
+
+```
+
 
 ## [abdennour/terraform](https://hub.docker.com/r/abdennour/terraform)
 

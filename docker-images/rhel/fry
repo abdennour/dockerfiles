@@ -8,7 +8,27 @@ if [ ! -z "${BOOTSTRAP_SUDOER}" ]; then
 fi
 # bootstrap user if any
 if [ ! -z "${BOOTSTRAP_USER}" ]; then
-  adduser ${BOOTSTRAP_USER}
+  adduser ${BOOTSTRAP_USER};
+  # process capabilities to be added to bootstrap user
+  if [ ! -z "${BOOTSTRAP_USER_CAPS}" ]; then
+    # sudoer capability
+    if [[ "$BOOTSTRAP_USER_CAPS" == *"sudo"* ]]; then
+      echo "${BOOTSTRAP_USER} ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/${BOOTSTRAP_USER}
+    fi
+    # ssh keys capability
+    if [[ "$BOOTSTRAP_USER_CAPS" == *"ssh-key"* ]]; then
+      SSH_HOME=home/${BOOTSTRAP_USER}/.ssh;
+      VOLUME_SSH=/data/ssh-key;
+      mkdir -p ${VOLUME_SSH}
+      rm -rf ${SSH_HOME}/id_rsa*;
+      mkdir -p -m=700 ${SSH_HOME} && chmod g+s ${SSH_HOME};
+      chown ${BOOTSTRAP_USER}:${BOOTSTRAP_USER} ${SSH_HOME};
+      ssh-keygen -t rsa -N "" -f ${SSH_HOME}/id_rsa;
+      chown -R ${BOOTSTRAP_USER}:${BOOTSTRAP_USER} ${SSH_HOME}/*;
+      mv ${SSH_HOME}/id_rsa.pub ${SSH_HOME}/authorized_keys
+      mv ${SSH_HOME}/id_rsa ${VOLUME_SSH}/${BOOTSTRAP_USER}
+    fi
+  fi
 fi
 
 exec /sbin/init $@
