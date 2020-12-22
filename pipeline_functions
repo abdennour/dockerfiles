@@ -37,13 +37,13 @@ build_from_external()
   repo_url=$1
   tag_or_branch=$2
   repo_basename=$(basename ${repo_url} .git)
-  tmp_dir=/tmp/${repo_basename}
+  tmp_dir=/tmp/external-builds
   mkdir -p ${tmp_dir}
   echo "cloning ${repo_url} into ${tmp_dir}"
   git -C ${tmp_dir} clone --depth 1 \
           --branch ${tag_or_branch} \
           ${repo_url}
-  docker build -t tmp:${tag_or_branch} ${tmp_dir}
+  docker build -t tmp:${tag_or_branch} ${tmp_dir}/${repo_basename}
 }
 
 test_function()
