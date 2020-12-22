@@ -3,6 +3,6 @@
 
 export $(cat ../../.env | xargs)
 
-build_from_external \
+build_from_external_git \
   https://github.com/github/linguist.git ${LINGUIST_VERSION}
 

@@ -32,7 +32,7 @@ build_function()
   echo "------ HOOK END - BUILD -------"
 }
 
-build_from_external()
+build_from_external_git()
 {
   repo_url=$1
   tag_or_branch=$2
