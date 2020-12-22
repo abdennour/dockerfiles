@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_from_external \
+  https://github.com/github/linguist.git ${LINGUIST_VERSION}
+

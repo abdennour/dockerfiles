@@ -1,0 +1,2 @@
+ARG LINGUIST_VERSION
+FROM tmp-image:${LINGUIST_VERSION} as linguist

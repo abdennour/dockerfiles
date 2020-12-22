@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+# build_function     target           tag
+build_function linguist ${LINGUIST_VERSION}
