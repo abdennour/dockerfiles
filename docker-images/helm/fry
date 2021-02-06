@@ -1,6 +1,6 @@
 #!/bin/sh
 
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+# helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 # Loop thru all env vars starts by HELM_REPO_ and parse repo name and repo link
 # .eg. HELM_REPO_stable=https://kubernetes-charts.storage.googleapis.com/
 printenv | grep HELM_REPO_ | while read -r i; do
