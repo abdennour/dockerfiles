@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function curl-zip alpine-${ALPINE_VERSION}
