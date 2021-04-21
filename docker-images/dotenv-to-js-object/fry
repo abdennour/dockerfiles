@@ -1,6 +1,6 @@
 #!/bin/sh
 # override it with -df=*|--dest-filename=*)
-DEST_FILENAME="env.js"
+dest_filename="env.js"
 dest="."
 # override it with -jo=*|--js-object=*)
 js_object='window.process=(window.process||{});window.process.env'
@@ -55,8 +55,8 @@ prepare_dest_files() {
   ### prepare destination ###
   dest=$1
   mkdir -p ${dest}
-  rm -rf ${dest}/${DEST_FILENAME}
-  touch ${dest}/${DEST_FILENAME}
+  rm -rf ${dest}/${dest_filename}
+  touch ${dest}/${dest_filename}
 
 }
 # $1: js_object
@@ -64,7 +64,7 @@ prepare_dest_files() {
 build_js_object() {
   js_object=$1
   dest=$2
-  echo "${js_object} = {" > ${dest}/${DEST_FILENAME}
+  echo "${js_object} = {" > ${dest}/${dest_filename}
   # Read each line in .env file
   # Each line represents key=value pairs
   while read -r line || [[ -n "$line" ]];
@@ -82,11 +82,11 @@ build_js_object() {
       [[ -z $value ]] && value=${varvalue}
 
       # Append configuration property to JS file
-      echo "  $varname: \"$value\"," >> ${dest}/${DEST_FILENAME}
+      echo "  $varname: \"$value\"," >> ${dest}/${dest_filename}
     fi
   done < ${final_src_env_file}
 
-  echo "}" >> ${dest}/${DEST_FILENAME}
+  echo "}" >> ${dest}/${dest_filename}
 }
 
 # $1: js_object
@@ -126,7 +126,7 @@ case $i in
     shift # past argument=value
     ;;
     -df=*|--dest-filename=*)
-    dest="${i#*=}"
+    dest_filename="${i#*=}"
     shift # past argument=value
     ;;
     -jo=*|--js-object=*)
