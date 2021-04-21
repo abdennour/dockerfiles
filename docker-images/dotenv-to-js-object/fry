@@ -1,7 +1,9 @@
 #!/bin/sh
+# override it with -df=*|--dest-filename=*)
 DEST_FILENAME="env.js"
 dest="."
-js_object=${js_object:-'window.process=(window.process||{});window.process.env'}
+# override it with -jo=*|--js-object=*)
+js_object='window.process=(window.process||{});window.process.env'
 run_as="job"
 final_src_env_file=/tmp/.env
 tmp_env_file=/tmp/env-$(date +%s)
@@ -120,6 +122,10 @@ case $i in
     shift # past argument=value
     ;;
     -d=*|--dest=*)
+    dest="${i#*=}"
+    shift # past argument=value
+    ;;
+    -df=*|--dest-filename=*)
     dest="${i#*=}"
     shift # past argument=value
     ;;
