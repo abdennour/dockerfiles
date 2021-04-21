@@ -1,7 +1,7 @@
 #!/bin/sh
 DEST_FILENAME="env.js"
 dest="."
-js_object='window.process=(window.process||{});window.process.env'
+js_object=${js_object:-'window.process=(window.process||{});window.process.env'}
 run_as="job"
 final_src_env_file=/tmp/.env
 tmp_env_file=/tmp/env-$(date +%s)
