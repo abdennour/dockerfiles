@@ -1,0 +1,10 @@
+DOCKER_COMPOSE_VERSION=1.29.2
+
+docker build -t abdennour/docker-compose:${DOCKER_COMPOSE_VERSION}-ssh --build-arg DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION} --target=docker-compose-ssh .
+docker build -t abdennour/docker-compose:${DOCKER_COMPOSE_VERSION}-ssl --build-arg DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION} --target=docker-compose-ssl .
+docker build -t abdennour/docker-compose:${DOCKER_COMPOSE_VERSION}-ssh-ssl --build-arg DOCKER_COMPOSE_VERSION=${DOCKER_COMPOSE_VERSION} --target=docker-compose-ssh-ssl .
+# docker login -u abc -p  xyz;
+
+docker push abdennour/docker-compose:${DOCKER_COMPOSE_VERSION}-ssh
+docker push abdennour/docker-compose:${DOCKER_COMPOSE_VERSION}-ssl
+docker push abdennour/docker-compose:${DOCKER_COMPOSE_VERSION}-ssh-ssl
