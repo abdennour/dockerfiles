@@ -1,0 +1,6 @@
+ALPINE_VERSION=3.14
+
+docker build -t abdennour/alpine:${ALPINE_VERSION}-ssl --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
+
+# docker login -u abc -p  xyz;
+docker push abdennour/alpine:${ALPINE_VERSION}-ssl
