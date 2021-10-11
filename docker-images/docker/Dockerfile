@@ -1,6 +1,7 @@
 ARG DOCKER_VERSION
 
 FROM docker:${DOCKER_VERSION} as docker-buildx
+# Credits to https://github.com/docker/buildx/issues/132#issuecomment-695768757
 RUN mkdir -p ~/.docker/cli-plugins && \
    wget https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64 && \
    chmod a+x buildx-v0.4.1.linux-amd64 && \
