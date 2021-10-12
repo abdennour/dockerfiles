@@ -2,7 +2,7 @@ ARG DOCKER_VERSION
 
 FROM docker:${DOCKER_VERSION} as docker-buildx
 # Credits to https://github.com/docker/buildx/issues/132#issuecomment-695768757
-ARG BUILDX_VERSION=0.6.3
+ARG BUILDX_VERSION
 ENV BUILDX_VERSION=${BUILDX_VERSION}
 RUN mkdir -p ~/.docker/cli-plugins && \
    wget https://github.com/docker/buildx/releases/download/v${BUILDX_VERSION}/buildx-v${BUILDX_VERSION}.linux-amd64 && \
