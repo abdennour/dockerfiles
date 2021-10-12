@@ -2,10 +2,12 @@ ARG DOCKER_VERSION
 
 FROM docker:${DOCKER_VERSION} as docker-buildx
 # Credits to https://github.com/docker/buildx/issues/132#issuecomment-695768757
+ARG BUILDX_VERSION=0.6.3
+ENV BUILDX_VERSION=${BUILDX_VERSION}
 RUN mkdir -p ~/.docker/cli-plugins && \
-   wget https://github.com/docker/buildx/releases/download/v0.4.1/buildx-v0.4.1.linux-amd64 && \
-   chmod a+x buildx-v0.4.1.linux-amd64 && \
-   mv buildx-v0.4.1.linux-amd64 ~/.docker/cli-plugins/docker-buildx
+   wget https://github.com/docker/buildx/releases/download/v${BUILDX_VERSION}/buildx-v${BUILDX_VERSION}.linux-amd64 && \
+   chmod a+x buildx-v${BUILDX_VERSION}.linux-amd64 && \
+   mv buildx-v${BUILDX_VERSION}.linux-amd64 ~/.docker/cli-plugins/docker-buildx
 # docker buildx du
 
 FROM docker:${DOCKER_VERSION}-dind as docker
