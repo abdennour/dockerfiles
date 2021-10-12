@@ -11,6 +11,7 @@ This is the origin of versions mentioned in the [.env](.env) by order:
 | ALPINE_VERSION    | https://hub.docker.com/_/alpine?tab=tags |
 | ANSIBLE_VERSION   | https://github.com/ansible/ansible/releases | 
 | AWS_CLI_VERSION   | https://github.com/aws/aws-cli/releases | 
+| BUILDX_VERSION    | https://github.com/docker/buildx/releases |
 | DOCKER_COMPOSE_VERSION | https://github.com/docker/compose/releases | 
 | DOCKER_VERSION    | https://github.com/moby/moby/releases | 
 | EKSCTL_VERSION    | https://github.com/weaveworks/eksctl/releases | 
