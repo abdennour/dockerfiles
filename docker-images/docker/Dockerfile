@@ -19,13 +19,13 @@ RUN mkdir -p ~/.docker/cli-plugins && \
    mv docker-compose-linux-x86_64 ~/.docker/cli-plugins/docker-compose
 # docker compose version
 
-FrOM docker-compose as docker-compose-ssh
+FROM docker-compose as docker-compose-ssh
 RUN apk add --update --no-cache openssh-client
 
-FrOM docker-compose as docker-compose-ssl
+FROM docker-compose as docker-compose-ssl
 RUN apk add --update --no-cache openssl ca-certificates
 
-FrOM docker-compose as docker-compose-ssh-ssl
+FROM docker-compose as docker-compose-ssh-ssl
 RUN apk add --update --no-cache openssh-client openssl ca-certificates
 
 FROM docker:${DOCKER_VERSION}-dind as docker
