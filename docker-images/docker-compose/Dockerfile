@@ -1,9 +1,9 @@
    
-ARG DOCKER_COMPOSE_VERSION
-FROM docker/compose:${DOCKER_COMPOSE_VERSION} as docker-compose-ssh
+ARG DOCKER_COMPOSE_VERSION_V1
+FROM docker/compose:${DOCKER_COMPOSE_VERSION_V1} as docker-compose-ssh
 RUN apk add --update --no-cache openssh-client
 
-FROM docker/compose:${DOCKER_COMPOSE_VERSION} as docker-compose-ssl
+FROM docker/compose:${DOCKER_COMPOSE_VERSION_V1} as docker-compose-ssl
 RUN apk add --update --no-cache openssl ca-certificates
 RUN sed -i 's@http://@https://@g' /etc/apk/repositories
 
