@@ -30,7 +30,12 @@ dotenv-to-js-object
 
 - [abdennour/git](https://hub.docker.com/r/abdennour/git)
 
-    * |_ **abdennour/git:x.y.z**   
+    * |_ **abdennour/git:x.y.z**  
+
+- [abdennour/git](https://hub.docker.com/r/abdennour/gitea-cli)
+
+    * |_ **abdennour/gitea-cli:x.y.z-alpine** 
+
 
 - [abdennour/grails](https://hub.docker.com/r/abdennour/grails)
 
