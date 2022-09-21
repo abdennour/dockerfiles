@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. ../../pipeline_functions
+
+export $(cat ../../.env | xargs)
+
+build_function gitea-cli ${GITEA_CLI_VERSION}-alpine

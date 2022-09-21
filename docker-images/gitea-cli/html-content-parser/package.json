@@ -1,0 +1,18 @@
+{
+  "name": "html-content-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "parse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jfile": "^1.1.12",
+    "jquery": "^3.6.1",
+    "jsdom": "^20.0.0",
+    "node-html-parser": "^6.1.0"
+  }
+}

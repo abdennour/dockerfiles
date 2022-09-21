@@ -50,6 +50,7 @@ services:
         LINGUIST_VERSION: ${LINGUIST_VERSION}
         BUILDX_VERSION: ${BUILDX_VERSION}
         DOCKER_COMPOSE_VERSION: ${DOCKER_COMPOSE_VERSION}
+        GITEA_CLI_VERSION: ${GITEA_CLI_VERSION}
   container-structure-test:
     image: gcr.io/gcp-runtimes/container-structure-test
     volumes:

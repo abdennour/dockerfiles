@@ -16,6 +16,7 @@ This is the origin of versions mentioned in the [.env](.env) by order:
 | DOCKER_VERSION    | https://github.com/moby/moby/releases | 
 | EKSCTL_VERSION    | https://github.com/weaveworks/eksctl/releases | 
 | GIT_VERSION       | https://pkgs.alpinelinux.org/packages?name=git&branch=edge | 
+| GITEA_CLI_VERSION | https://gitea.com/gitea/tea/releases | 
 | GRAILS_VERSION    | In-House Image | 
 | GRAILS_JAVA_VERSION | In House Image | 
 | GO_VERSION        | https://golang.org/doc/devel/release.html | 
