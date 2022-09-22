@@ -32,7 +32,7 @@ dotenv-to-js-object
 
     * |_ **abdennour/git:x.y.z**  
 
-- [abdennour/git](https://hub.docker.com/r/abdennour/gitea-cli)
+- [abdennour/gitea-cli](https://hub.docker.com/r/abdennour/gitea-cli)
 
     * |_ **abdennour/gitea-cli:x.y.z-alpine** 
 
@@ -246,9 +246,22 @@ git log
 # so on
 ```
 
+## [abdennour/gitea-cli](https://hub.docker.com/r/abdennour/gitea-cli)
+
+**abdennour/gitea-cli:x.y.z-alpine** 
+
+```sh
+docker run -it --rm \
+  -e GITEA_SERVER_URL=http://gitea:3000 \
+  -e GITEA_SERVER_USER=gitea_admin \
+  -e GITEA_SERVER_PASSWORD=**** \
+  abdennour/gitea-cli:0.9.0-alpine \
+    organizations list
+```
+
 ## [abdennour/grails](https://hub.docker.com/r/abdennour/grails)
 
-**abdennour/git:x.y.z**
+**abdennour/grails:x.y.z**
 
 ```sh
 export $(curl -SsL https://raw.githubusercontent.com/abdennour/dockerfiles/master/.env | xargs);
