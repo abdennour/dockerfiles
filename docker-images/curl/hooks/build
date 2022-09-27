@@ -4,3 +4,4 @@
 export $(cat ../../.env | xargs)
 
 build_function curl alpine-${ALPINE_VERSION}
+build_function curl-bash bash-alpine-${ALPINE_VERSION}
