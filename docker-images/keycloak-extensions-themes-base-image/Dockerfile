@@ -1,4 +1,5 @@
-FROM alpine:3.16 as base
+ARG ALPINE_VERSION
+FROM alpine:${ALPINE_VERSION} as image
 RUN mkdir -p /keycloak/extensions /keycloak/themes && \
   chown -R 1001:0 /keycloak && \
   chmod g+s /keycloak
