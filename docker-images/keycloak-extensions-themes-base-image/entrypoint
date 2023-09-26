@@ -1,0 +1,16 @@
+#!/bin/sh
+# 
+if [ -d "${COLLECTED_EXTENSIONS_MOUNT}" ]; then
+  echo Copying extensions to ${COLLECTED_EXTENSIONS_MOUNT}...
+  cp /keycloak/extensions/*.jar ${COLLECTED_EXTENSIONS_MOUNT} || echo "$(date +%F%T) WARN No extensions found! Make sure to ship your extensions in the image under /keycloak/extensions/"
+fi
+
+if [ -d "${COLLECTED_THEMES_MOUNT}" ]; then
+  echo Copying themes to ${COLLECTED_THEMES_MOUNT}...
+  cp -R /keycloak/themes/* ${COLLECTED_THEMES_MOUNT} || echo "$(date +%F%T) WARN No themes found! Make sure to ship your themes in the image under /keycloak/themes/"; 
+fi
+
+if [ -d "${COLLECTED_DATA_IMPORT_MOUNT}" ]; then
+  echo "Copying JSON Data to ${COLLECTED_DATA_IMPORT_MOUNT}... If It is about realms, make sure to run with extra args --import-realm"
+  cp /keycloak/data/*.json ${COLLECTED_DATA_IMPORT_MOUNT} || echo "$(date +%F%T) WARN No JSON Data found! Make sure to ship your JSON data (as Realms) in the image under /keycloak/data/"
+fi
