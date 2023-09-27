@@ -1,6 +1,6 @@
 ALPINE_VERSION=3.16
 
-docker build   abdennour/keycloak-init-files:alpine-${ALPINE_VERSION} --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
+docker build -t  abdennour/keycloak-init-files:alpine-${ALPINE_VERSION} --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
 
 # docker login -u abc -p  xyz;
 docker push abdennour/keycloak-init-files:alpine-${ALPINE_VERSION}
