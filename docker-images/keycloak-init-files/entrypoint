@@ -12,5 +12,7 @@ fi
 
 if [ -d "${COLLECTED_DATA_IMPORT_MOUNT}" ]; then
   echo "Copying JSON Data to ${COLLECTED_DATA_IMPORT_MOUNT}... If It is about realms, make sure to run with extra args --import-realm"
-  cp /keycloak/data/*.json ${COLLECTED_DATA_IMPORT_MOUNT} || echo "$(date +%F%T) WARN No JSON Data found! Make sure to ship your JSON data (as Realms) in the image under /keycloak/data/"
+  echo "Including Substituting env vars in GoTemplate format if any ( i.e. {{ .HOME }} )"
+  subvars dir --input /keycloak/data --out ${COLLECTED_DATA_IMPORT_MOUNT}
+  # cp /keycloak/data/*.json ${COLLECTED_DATA_IMPORT_MOUNT} || echo "$(date +%F%T) WARN No JSON Data found! Make sure to ship your JSON data (as Realms) in the image under /keycloak/data/"
 fi
