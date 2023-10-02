@@ -1,4 +1,4 @@
-FROM khaliq/subvars:latest as subvars
+FROM khaliq/subvars:v0.1.3 as subvars
 
 ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION} as image
