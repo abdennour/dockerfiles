@@ -1,6 +1,6 @@
+ARG ALPINE_VERSION
 FROM khaliq/subvars:v0.1.3 as subvars
 
-ARG ALPINE_VERSION
 FROM alpine:${ALPINE_VERSION} as image
 COPY --from=subvars --chown=1001:0 /usr/bin/subvars /usr/bin/subvars
 RUN mkdir -p /keycloak/extensions /keycloak/themes && \
