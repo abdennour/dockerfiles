@@ -12,7 +12,7 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_
 ENTRYPOINT [ "kubectl" ]
 
 ARG AWS_CLI_VERSION
-FROM amazon/aws-cli:$AWS_CLI_VERSION as kubectl-aws
+FROM amazon/aws-cli:${AWS_CLI_VERSION} as kubectl-aws
 COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/
 ENTRYPOINT [ "/usr/local/bin/kubectl" ]
 
