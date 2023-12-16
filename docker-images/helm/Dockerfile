@@ -16,3 +16,7 @@ ENTRYPOINT ["sh", "/bin/helm-entrypoint" ]
 CMD ["--help"]
 
 FROM helm as helm-aws
+
+ARG HELM_VERSION
+FROM nexus.elm.sa/alpine/helm:$HELM_VERSION as helm-node
+RUN apk add --update nodejs-current npm
