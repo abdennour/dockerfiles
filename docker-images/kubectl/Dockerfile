@@ -1,5 +1,5 @@
 # https://storage.googleapis.com/kubernetes-release/release/stable.txt
-
+ARG AWS_CLI_VERSION
 FROM alpine:edge as kubectl
 
 RUN apk add --update ca-certificates bash gnupg jq \
@@ -11,7 +11,6 @@ RUN curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_
   && chmod +x /usr/local/bin/kubectl
 ENTRYPOINT [ "kubectl" ]
 
-ARG AWS_CLI_VERSION=latest
 FROM amazon/aws-cli:${AWS_CLI_VERSION} as kubectl-aws
 COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/
 ENTRYPOINT [ "/usr/local/bin/kubectl" ]
