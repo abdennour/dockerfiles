@@ -4,3 +4,4 @@
 export $(cat ../../.env | xargs)
 
 build_function helm ${HELM_VERSION}
+build_function helm-node ${HELM_VERSION}-node
