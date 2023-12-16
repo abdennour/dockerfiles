@@ -4,11 +4,11 @@
 export $(cat ../../.env | xargs)
 
 build_function kubectl ${KUBECTL_VERSION}
-build_function kubectl-helm ${KUBECTL_VERSION}-helm${HELM_VERSION}
+# build_function kubectl-helm ${KUBECTL_VERSION}-helm${HELM_VERSION}
 build_function kubectl-aws ${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}
-helm_tag=${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}-helm-${HELM_VERSION}
-build_function kubectl-aws-helm ${helm_tag}
+# helm_tag=${KUBECTL_VERSION}-aws${AWS_CLI_VERSION}-helm-${HELM_VERSION}
+# build_function kubectl-aws-helm ${helm_tag}
 
 
-docker tag abdennour/kubectl:${helm_tag} abdennour/helm:${HELM_VERSION}-aws${AWS_CLI_VERSION}-kubectl${KUBECTL_VERSION}
-docker push abdennour/helm:${HELM_VERSION}-aws${AWS_CLI_VERSION}-kubectl${KUBECTL_VERSION}
+# docker tag abdennour/kubectl:${helm_tag} abdennour/helm:${HELM_VERSION}-aws${AWS_CLI_VERSION}-kubectl${KUBECTL_VERSION}
+# docker push abdennour/helm:${HELM_VERSION}-aws${AWS_CLI_VERSION}-kubectl${KUBECTL_VERSION}
