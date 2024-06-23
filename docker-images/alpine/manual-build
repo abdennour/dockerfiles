@@ -1,4 +1,4 @@
-ALPINE_VERSION=3.16
+ALPINE_VERSION=3.20
 
 docker build --target alpine-ssl  abdennour/alpine:${ALPINE_VERSION}-ssl --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
 
