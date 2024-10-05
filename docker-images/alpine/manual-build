@@ -5,6 +5,11 @@ docker build --target alpine-ssl  abdennour/alpine:${ALPINE_VERSION}-ssl --build
 # docker login -u abc -p  xyz;
 docker push abdennour/alpine:${ALPINE_VERSION}-ssl
 
-docker build --target alpine-nodejs-and-utils -t abdennour/alpine:${ALPINE_VERSION}-nodejs-and-utils --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
+docker build --target alpine-nodejs-with-ssl-git -t abdennour/alpine:${ALPINE_VERSION}-nodejs-with-ssl-git --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
 
-docker push abdennour/alpine:${ALPINE_VERSION}-nodejs-and-utils
+docker push abdennour/alpine:${ALPINE_VERSION}-nodejs-with-ssl-git
+
+
+docker build --target alpine-nodejs-with-ssl-git-skopeo-cosign -t abdennour/alpine:${ALPINE_VERSION}-nodejs-with-ssl-git-skopeo-cosign --build-arg ALPINE_VERSION=${ALPINE_VERSION} .
+
+docker push abdennour/alpine:${ALPINE_VERSION}-nodejs-with-ssl-git-skopeo-cosign
