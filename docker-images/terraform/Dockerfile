@@ -32,3 +32,7 @@ RUN curl -L https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/
   && chmod +x /usr/local/bin/aws-iam-authenticator \
   && apk del curl \
   && rm -f /var/cache/apk/*
+
+ARG TERRAFORM_VERSION
+FROM hashicorp/terraform:${TERRAFORM_VERSION}  as terraform-node
+RUN apk add --update nodejs-current npm --no-cache
