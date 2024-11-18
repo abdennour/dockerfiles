@@ -11,6 +11,7 @@ services:
       # context relatives to docker-images/${IMAGE_NAME_ONLY}/
       context: .
       target: ${target}
+      network: host
       labels:
         maintainer: "Abdennour Toumi <http://in.abdennoor.com>"
         tn.kubernetes.docker.dockerfile: "docker-images/${IMAGE_NAME_ONLY}/Dockerfile"
